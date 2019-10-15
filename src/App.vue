@@ -6,8 +6,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    ...mapGetters([
+      'isLoading'
+    ])
+  }
 }
 </script>
 
@@ -19,5 +26,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  background-image: url(https://www.northriverboats.com/wp-content/uploads/2016/01/bg_main.jpg);
+   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 </style>

@@ -84,12 +84,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isNRB',
+      'userInfo'
+    ])
+  },
+  created () {
+    this.$store.dispatch('userInfoRead')
+      .then(() => {
+        this.msg = this.userInfo
+      })
   }
 }
 </script>
