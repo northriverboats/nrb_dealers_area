@@ -6,10 +6,10 @@
         :is-full-page="true">
       </loading>
     </div>
-    <div class="container">
+    <div class="container is-full-desktop notification">
       <div class="logo"></div>
     </div>
-    <div class="container">
+    <div class="container is-full-mobile is-four-fifths-desktop notification">
       <router-view/>
     </div>
   </div>
@@ -41,7 +41,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 body, html  {
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
