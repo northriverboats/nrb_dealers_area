@@ -1,13 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg">
     <div class="vld-parent">
       <loading :active.sync="loaded"
         :can-cancel="false"
         :is-full-page="true">
       </loading>
     </div>
-    <img src="./assets/logo.png">
-    <router-view/>
+    <div class="container">
+      <div class="logo"></div>
+    </div>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -38,11 +42,21 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
-body {
-  background-image: url(https://www.northriverboats.com/wp-content/uploads/2016/01/bg_main.jpg);
-   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+body, html  {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  height: 100%;
+}
+.bg {
+  background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/bg_main.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.logo {
+  background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/logo.png");
+  width: 250px;
+  height: 85px;
 }
 </style>
