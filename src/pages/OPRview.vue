@@ -34,7 +34,7 @@
         >
         <template slot-scope="props">
           <b-table-column field="dealership" label="Dealership" :visible="isNRB" sortable>
-            {{ props.row.dealership }}
+            {{ titleCase(props.row.dealership) }}
           </b-table-column>
           <b-table-column field="date_purchased" label="Purchased" sortable>
             {{
@@ -47,16 +47,16 @@
             {{ props.row.hull_serial_number }}
           </b-table-column>
           <b-table-column field="first_name" label="First Name" sortable>
-            {{ props.row.first_name }}
+            {{ titleCase(props.row.first_name) }}
           </b-table-column>
           <b-table-column field="last_name" label="Last Name" sortable>
-            {{ props.row.last_name }}
+            {{ titleCase(props.row.last_name) }}
           </b-table-column>
           <b-table-column field="street_city" label="City" sortable>
-            {{ props.row.street_city }}
+            {{ titleCase(props.row.street_city) }}
           </b-table-column>
           <b-table-column field="street_state" label="State" sortable>
-            {{ props.row.street_state }}
+            {{ titleCase(props.row.street_state) }}
           </b-table-column>
           <b-table-column custom-key="pdf">
             <a href="#" @click="toPDF(props.row.id)">
@@ -106,6 +106,12 @@ export default {
     },
     toEdit: function (id) {
       alert('Not yet ' + id + ' is not ready.')
+    },
+    titleCase: function (str) {
+      str = str || ''
+      return str.toLowerCase().split(' ').map(function (word) {
+        return (word.charAt(0).toUpperCase() + word.slice(1))
+      }).join(' ')
     },
     textMatch: function (item) {
       var searchTerm = this.searchTerm.toLowerCase()
