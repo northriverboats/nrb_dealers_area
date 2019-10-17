@@ -6,7 +6,7 @@
         :is-full-page="true">
       </loading>
     </div>
-    <div class="container is-full-desktop notification">
+    <div class="container is-full-desktop">
       <div class="columns is-vcentered">
         <div class="column is-narrow">
           <div class="logo"></div>
@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="container is-full-mobile is-four-fifths-desktop notification">
+    <div class="container is-full-mobile is-four-fifths-desktop">
       <router-view/>
     </div>
   </div>
@@ -64,5 +64,10 @@ body, html  {
   background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/logo.png");
   width: 250px;
   height: 85px;
+}
+.pagination-link, .pagination-next, .pagination-previous {
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+  min-width: 2.25em;
 }
 </style>
