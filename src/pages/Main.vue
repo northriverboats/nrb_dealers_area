@@ -21,8 +21,12 @@
         <h1 class="title">Original Purchaser Registration</h1>
         <hr class="has-background-white">
       <div class="columns">
-        <div class="column"><a href="/drc" class="button is-primary is-inverted is-outlined">Create New OPR</a></div>
-        <div class="column"><a href="/drc" class="button is-primary is-inverted is-outlined">View All OPRs</a></div>
+        <div class="column">
+          <a href="/drc" class="button is-primary is-inverted is-outlined">Create New OPR</a>
+        </div>
+        <div class="column">
+          <router-link :to="{name: 'OPRview'}" class="button is-primary is-inverted is-outlined">View All OPRs</router-link>
+        </div>
       </div>
     </div>
     <!-- MAINTEANCE  -->
