@@ -14,7 +14,7 @@
         <hr class="has-background-white">
       <div class="columns">
         <div class="column">
-          <router-link :to="{name: 'DRIform'}" class="button is-primary is-inverted is-outlined">Create New DRI</router-link>
+          <router-link :to="{name: 'DRIform', params: {id: 0}}" class="button is-primary is-inverted is-outlined">Create New DRI</router-link>
         </div>
         <div class="column">
           <router-link :to="{name: 'DRIview'}" class="button is-primary is-inverted is-outlined">View All DRIs</router-link>
@@ -27,7 +27,7 @@
         <hr class="has-background-white">
       <div class="columns">
         <div class="column">
-          <router-link :to="{name: 'OPRform'}" class="button is-primary is-inverted is-outlined">Create New OPR</router-link>
+          <router-link :to="{name: 'OPRform', params: {id: 0}}" class="button is-primary is-inverted is-outlined">Create New OPR</router-link>
         </div>
         <div class="column">
           <router-link :to="{name: 'OPRview'}" class="button is-primary is-inverted is-outlined">View All OPRs</router-link>

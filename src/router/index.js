@@ -18,7 +18,7 @@ export default new Router({
       component: Main
     },
     {
-      path: '/contactusform',
+      path: '/contactusform/:id?',
       name: 'ContactUsForm',
       component: ContactUsForm
     },
@@ -28,7 +28,7 @@ export default new Router({
       component: ContactUsView
     },
     {
-      path: '/driform',
+      path: '/driform/:id?',
       name: 'DRIform',
       component: DRIform
     },
@@ -38,14 +38,14 @@ export default new Router({
       component: DRIview
     },
     {
+      path: '/oprform/:id?',
+      name: 'OPRform',
+      component: OPRform
+    },
+    {
       path: '/oprview',
       name: 'OPRview',
       component: OPRview
-    },
-    {
-      path: '/oprform',
-      name: 'OPRform',
-      component: OPRform
     }
   ]
 })
