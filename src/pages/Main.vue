@@ -36,7 +36,9 @@
         <h1 class="title">Contact Us</h1>
         <hr class="has-background-white">
       <div class="columns">
-        <div class="column"><a href="/drc" class="button is-primary is-inverted is-outlined">View All Contacts</a></div>
+        <div class="column">
+          <router-link :to="{name: 'ContactUsView'}" class="button is-primary is-inverted is-outlined">View All Contact Us</router-link>
+        </div>
       </div>
     </div>
   </div>
