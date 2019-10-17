@@ -2,7 +2,8 @@
   <div class="columns is-multiline">
     <!-- RESOURCES -->
     <div class="column is-full-mobile is-full-desktop" style="margin-bottom: 2rem">
-      <h1 class="title">Resources</h1><hr class="has-background-white">
+      <h1 class="title">Resources</h1>
+      <hr class="has-background-white">
       <div class="columns">
         <div class="column"><a href="/drc" class="button is-primary is-inverted is-outlined">Dealer Resource Center</a></div>
       </div>
@@ -12,7 +13,9 @@
         <h1 class="title">Dealer Inspection</h1>
         <hr class="has-background-white">
       <div class="columns">
-        <div class="column"><a href="/drc" class="button is-primary is-inverted is-outlined">Create New DRI</a></div>
+        <div class="column">
+          <router-link :to="{name: 'DRIform'}" class="button is-primary is-inverted is-outlined">Create New DRI</router-link>
+        </div>
         <div class="column">
           <router-link :to="{name: 'DRIview'}" class="button is-primary is-inverted is-outlined">View All DRIs</router-link>
         </div>
@@ -24,7 +27,7 @@
         <hr class="has-background-white">
       <div class="columns">
         <div class="column">
-          <a href="/drc" class="button is-primary is-inverted is-outlined">Create New OPR</a>
+          <router-link :to="{name: 'OPRform'}" class="button is-primary is-inverted is-outlined">Create New OPR</router-link>
         </div>
         <div class="column">
           <router-link :to="{name: 'OPRview'}" class="button is-primary is-inverted is-outlined">View All OPRs</router-link>

@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/pages/Main'
-import OPRview from '@/pages/OPRview'
-import DRIview from '@/pages/DRIview'
+import ContactUsForm from '@/pages/ContactUsForm'
 import ContactUsView from '@/pages/ContactUsView'
+import DRIform from '@/pages/DRIform'
+import DRIview from '@/pages/DRIview'
+import OPRform from '@/pages/OPRform'
+import OPRview from '@/pages/OPRview'
 
 Vue.use(Router)
 
@@ -15,9 +18,19 @@ export default new Router({
       component: Main
     },
     {
+      path: '/contactusform',
+      name: 'ContactUsForm',
+      component: ContactUsForm
+    },
+    {
       path: '/conctactusview',
       name: 'ContactUsView',
       component: ContactUsView
+    },
+    {
+      path: '/driform',
+      name: 'DRIform',
+      component: DRIform
     },
     {
       path: '/driview',
@@ -28,6 +41,11 @@ export default new Router({
       path: '/oprview',
       name: 'OPRview',
       component: OPRview
+    },
+    {
+      path: '/oprform',
+      name: 'OPRform',
+      component: OPRform
     }
   ]
 })
