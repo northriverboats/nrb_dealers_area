@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column">
-        <h1 class="title">Contact Us Form</h1>
+        <h1 class="title">Contact Us Form {{ id }}</h1>
         <hr class="has-background-white">
       </div>
     </div>
@@ -16,7 +16,7 @@ export default {
   name: 'DRIform',
   data () {
     return {
-      searchTerm: ''
+      id: 0
     }
   },
   computed: {
@@ -31,6 +31,7 @@ export default {
   },
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Contact Us Form') }
+    this.id = this.$route.params.id.toString()
   }
 }
 </script>

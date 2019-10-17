@@ -61,7 +61,7 @@
             </a>
           </b-table-column>
           <b-table-column custom-key="edit">
-            <a href="#" @click="toEdit(props.row.hull_serial_number)">
+            <a href="#" @click="toEdit(props.row.id)">
               <b-icon icon="pencil" ></b-icon>
             </a>
           </b-table-column>
@@ -102,7 +102,7 @@ export default {
         })
     },
     toEdit: function (id) {
-      alert('Not yet ' + id + ' is not ready.')
+      this.$router.push({name: 'ContactUsForm', params: {id: id}})
     },
     titleCase: function (str) {
       str = str || ''
