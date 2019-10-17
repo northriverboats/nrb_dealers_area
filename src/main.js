@@ -8,13 +8,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import _ from 'lodash'
-
-Object.defineProperty(Vue.prototype, '$_', { value: _ })
+import VueLodash from 'vue-lodash'
 
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
+Vue.use(VueLodash)
 
 /* eslint-disable no-new */
 new Vue({

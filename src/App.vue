@@ -45,13 +45,11 @@ export default {
 body, html  {
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   height: 100%;
-}
-.bg {
   background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/bg_main.jpg");
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 .logo {
   background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/logo.png");

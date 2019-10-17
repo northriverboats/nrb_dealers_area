@@ -1,9 +1,14 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column">
-        <b-field label="Search">
-           <b-input v-model="searchTerm" />
+      <div class="column is-full-mobile is-half-desktop">
+        <b-field>
+           <b-input
+             v-model="searchTerm"
+             type="search"
+             icon="magnify"
+             placeholder="Search..."
+           />
         </b-field>
       </div>
     </div>
@@ -11,18 +16,50 @@
       <div class="column">
         <b-table
           :data="filter"
-          :columns="columns"
           :paginated="true"
-          :per-page="16"
+          :per-page="10"
           :striped="true"
           :narrowed="true"
           :hoverable="true"
           :pagination-simple="false"
+          :mobile-cards="true"
           aria-next-label="Next page"
           aria-previous-label="Previous page"
           aria-page-label="Page"
           aria-current-label="Current page"
         >
+        <template slot-scope="props">
+          <b-table-column field="dealership" label="Dealership" :visible="isNRB" sortable>
+            {{ props.row.dealership }}
+          </b-table-column>
+          <b-table-column field="date_purchased" label="Purchased" sortable>
+            {{
+              props.row.date_purchased.substring(5,7) + '/' +
+              props.row.date_purchased.substring(8,10) + '/' +
+              props.row.date_purchased.substring(0,4)
+            }}
+          </b-table-column>
+          <b-table-column field="hull_serial_number" label="Serial Number" sortable>
+            {{ props.row.hull_serial_number }}
+          </b-table-column>
+          <b-table-column field="first_name" label="First Name" sortable>
+            {{ props.row.first_name }}
+          </b-table-column>
+          <b-table-column field="last_name" label="Last Name" sortable>
+            {{ props.row.last_name }}
+          </b-table-column>
+          <b-table-column field="street_city" label="City" sortable>
+            {{ props.row.street_city }}
+          </b-table-column>
+          <b-table-column field="street_state" label="State" sortable>
+            {{ props.row.street_state }}
+          </b-table-column>
+          <b-table-column custom-key="actions">
+            <button class="button is-small is-dark" @click="edit(props.row.id)">
+              <b-icon icon="file-pdf-box" ></b-icon>
+            </button>
+          </b-table-column>
+        </template>
         </b-table>
       </div>
     </div>
@@ -36,44 +73,7 @@ export default {
   name: 'OPRview',
   data () {
     return {
-      searchTerm: '',
-      columns: [
-        {
-          label: 'Dealership',
-          field: 'dealership',
-          sortable: true
-        },
-        {
-          label: 'Purchased',
-          field: 'date_purchased',
-          sortable: true
-        },
-        {
-          label: 'Serial Number',
-          field: 'hull_serial_number',
-          sortable: true
-        },
-        {
-          label: 'First Name',
-          field: 'first_name',
-          sortable: true
-        },
-        {
-          label: 'Last Name',
-          field: 'last_name',
-          sortable: true
-        },
-        {
-          label: 'City',
-          field: 'street_city',
-          sortable: true
-        },
-        {
-          label: 'State',
-          field: 'street_state',
-          sortable: true
-        }
-      ]
+      searchTerm: ''
     }
   },
   computed: {
@@ -85,21 +85,27 @@ export default {
       'userInfo'
     ]),
     filter: function () {
-      var reg = new RegExp(this.searchTerm, 'i')
-      var data = []
-      for (var i in this.oprList) {
-        if ((this.oprList[i].hull_serial_number || '').match(reg) ||
-            (this.oprList[i].first_name || '').match(reg) ||
-            (this.oprList[i].last_name || '').match(reg) ||
-            (this.oprList[i].street_city || '').match(reg) ||
-            (this.oprList[i].street_state || '').match(reg)) {
-          data.push(this.oprList[i])
-        }
-      }
-      return data
+      return this.oprList.filter(this.textMatch)
     }
   },
   methods: {
+    edit: function (data) {
+      console.log(data)
+    },
+    textMatch: function (item) {
+      var searchTerm = this.searchTerm.toLowerCase()
+      var itemText = (
+        item.hull_serial_number + '~' +
+        item.date_purchased.substring(5, 7) + '/' +
+        item.date_purchased.substring(8, 10) + '/' +
+        item.date_purchased.substring(0, 4) + '~' +
+        item.first_name + ' ' +
+        item.last_name + '~' +
+        item.street_city + '~' +
+        item.street_state
+      ).toLowerCase()
+      return itemText.indexOf(searchTerm) !== -1
+    }
   },
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Original Purchaser Registration History') }
