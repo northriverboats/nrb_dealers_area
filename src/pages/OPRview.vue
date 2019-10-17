@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column is-full-mobile is-half-desktop">
+      <div class="column">
+        <h1 class="title">Original Purchaser Registrations</h1>
+      </div>
+      <div class="column">
         <b-field>
            <b-input
              v-model="searchTerm"
@@ -14,6 +17,7 @@
     </div>
     <div class="columns">
       <div class="column">
+        <hr class="has-background-white" style="margin-top: 0rem">
         <b-table
           :data="filter"
           :paginated="true"
@@ -54,10 +58,15 @@
           <b-table-column field="street_state" label="State" sortable>
             {{ props.row.street_state }}
           </b-table-column>
-          <b-table-column custom-key="actions">
-            <button class="button is-small is-dark" @click="edit(props.row.id)">
+          <b-table-column custom-key="pdf">
+            <a href="#" @click="toPDF(props.row.id)">
               <b-icon icon="file-pdf-box" ></b-icon>
-            </button>
+            </a>
+          </b-table-column>
+          <b-table-column custom-key="edit">
+            <a href="#" @click="toEdit(props.row.hull_serial_number)">
+              <b-icon icon="pencil" ></b-icon>
+            </a>
           </b-table-column>
         </template>
         </b-table>
@@ -89,12 +98,20 @@ export default {
     }
   },
   methods: {
-    edit: function (data) {
-      console.log(data)
+    toPDF: function (id) {
+      this.$store.dispatch('readOPRPDF', id)
+        .then(() => {
+          window.open(this.fileName, '_blank')
+        })
+    },
+    toEdit: function (id) {
+      alert('Not yet ' + id + ' is not ready.')
     },
     textMatch: function (item) {
       var searchTerm = this.searchTerm.toLowerCase()
+      var dealership = (this.isNRB ? item.dealership : '')
       var itemText = (
+        dealership + '~' +
         item.hull_serial_number + '~' +
         item.date_purchased.substring(5, 7) + '/' +
         item.date_purchased.substring(8, 10) + '/' +
