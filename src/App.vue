@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg">
+  <div id="app">
     <div class="vld-parent">
       <loading :active.sync="loaded"
         :can-cancel="false"
@@ -7,7 +7,14 @@
       </loading>
     </div>
     <div class="container is-full-desktop notification">
-      <div class="logo"></div>
+      <div class="columns is-vcentered">
+        <div class="column is-narrow">
+          <div class="logo"></div>
+        </div>
+        <div class="column has-text-right">
+          <b-button @click="$router.go(-1)" type="is-info">Back</b-button>
+        </div>
+      </div>
     </div>
     <div class="container is-full-mobile is-four-fifths-desktop notification">
       <router-view/>
@@ -32,6 +39,8 @@ export default {
     loaded: function () {
       return this.isLoading > 0
     }
+  },
+  methods: {
   }
 }
 </script>
