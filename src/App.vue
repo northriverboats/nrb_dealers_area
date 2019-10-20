@@ -6,18 +6,24 @@
         :is-full-page="true">
       </loading>
     </div>
-    <div class="container is-full-desktop">
-      <div class="columns is-vcentered">
-        <div class="column is-narrow">
-          <div class="logo"></div>
-        </div>
-        <div class="column has-text-right">
-          <b-button @click="$router.go(-1)" type="is-info">Back</b-button>
+    <div class="columns is-centered">
+      <div class="column is-12-tablet is-11-desktop is-10-widescreen is-9-fullhd">
+        <div class="container">
+          <div class="columns is-vcentered">
+            <div class="column is-narrow">
+              <div class="logo"></div>
+            </div>
+            <div class="column has-text-right">
+              <b-button @click="$router.go(-1)" type="is-info">Back</b-button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container is-full-mobile is-four-fifths-desktop">
-      <router-view/>
+    <div class="columns  is-centered">
+      <div class="column is-11-tablet is-10-desktop is-9-widescreen is-8-fullhd">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
