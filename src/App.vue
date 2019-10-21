@@ -76,4 +76,15 @@ body, html  {
   color: #FFFFFF;
   min-width: 2.25em;
 }
+div.formgroup h3 {
+  font-size: 1.5rem;
+  margin-bottom: .5rem !important;
+}
+div.formgroup hr {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+.datepicker .datepicker-table .datepicker-body .datepicker-cell.is-selectable {
+  color: #FFFFFF;
+}
 </style>
