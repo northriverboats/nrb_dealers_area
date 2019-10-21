@@ -254,7 +254,7 @@
         </b-field>
       </div>
     </div>
-
+    <!-- BUTTONS -->
     <div class="columns is-multiline">
       <div class="column is-full">
       </div>
