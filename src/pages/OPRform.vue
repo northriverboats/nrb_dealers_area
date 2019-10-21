@@ -5,28 +5,65 @@
         <h3 class="title">Original Purchaser Registration for {{ dealership }}</h3>
         <hr class="has-background-white">
       </div>
+      <div class="column is-6-tablet is-7-desktop" v-if="isNRB">
+        <b-field label="Agency">
+          <b-input v-model="form.agency"></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-5-desktop" v-if="isNRB">
+        <b-field label="Contract">
+          <b-input v-model="form.contrct"></b-input>
+        </b-field>
+      </div>
       <div class="column is-6-tablet is-5-desktop">
-        <b-field label="First Name">
+        <b-field label="First Name"
+          :type="{'is-danger': $v.form.first_name.$error}"
+          :message="{'First Name is Required': $v.form.first_name.$error}"
+        >
           <b-input v-model="form.first_name"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-7-desktop">
-        <b-field label="Last Name">
+        <b-field label="Last Name"
+          :type="{'is-danger': $v.form.last_name.$error}"
+          :message="{'Last Name is Required': $v.form.last_name.$error}"
+        >
           <b-input v-model="form.last_name"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
-        <b-field label="Home Phone Number">
-          <b-input v-model="form.phone_home"></b-input>
+        <b-field label="Home Phone Number"
+          :type="{'is-danger': $v.form.phone_home.$error}"
+          :message="{
+            'Required if no home phone or email address': !$v.form.phone_home.$required
+               && $v.form.phone_home.minLength
+               && $v.form.phone_home.$error,
+            'Not a valid phone number': !$v.form.phone_home.minLength}"
+        >
+          <b-input v-model="form.phone_home" v-cleave="masks.phoneNumber"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
-        <b-field label="Work Phone Number">
-          <b-input v-model="form.phone_work"></b-input>
+        <b-field label="Work Phone Number"
+          :type="{'is-danger': $v.form.phone_work.$error}"
+          :message="{
+            'Required if no work phone or email address': !$v.form.phone_work.$required
+               && $v.form.phone_work.minLength
+               && $v.form.phone_work.$error,
+            'Not a valid phone number': !$v.form.phone_work.minLength}"
+        >
+          <b-input v-model="form.phone_work" v-cleave="masks.phoneNumber"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-6-desktop">
-        <b-field label="Email Address">
+        <b-field label="Email"
+          :type="{'is-danger': $v.form.email.$error}"
+          :message="{
+            'Required if no home or work phone': !$v.form.email.$required
+               && $v.form.email.email
+               && $v.form.email.$error,
+            'Not a valid email address': !$v.form.email.email}"
+        >
           <b-input v-model="form.email"></b-input>
         </b-field>
       </div>
@@ -39,17 +76,26 @@
         <hr class="has-background-white">
       </div>
       <div class="column is-full">
-        <b-field label="Address">
+        <b-field label="Address"
+          :type="{'is-danger': $v.form.street_address.$error}"
+          :message="{'Street Address is required': $v.form.street_address.$error}"
+        >
           <b-input v-model="form.street_address" @blur="blurAddress"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-6-desktop">
-        <b-field label="City">
+        <b-field label="City"
+          :type="{'is-danger': $v.form.street_city.$error}"
+          :message="{'City is required': $v.form.street_city.$error}"
+        >
           <b-input v-model="form.street_city" @blur="blurCity"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-3-desktop">
-        <b-field label="State">
+        <b-field label="State"
+          :type="{'is-danger': $v.form.street_state.$error}"
+          :message="{'State is required': $v.form.street_state.$error}"
+        >
           <b-autocomplete
             v-model="form.street_state"
             :data="filteredStreetStateArray"
@@ -62,7 +108,12 @@
         </b-field>
       </div>
       <div class="column is-2-tablet is-3-desktop">
-        <b-field label="Zip">
+        <b-field label="Zip"
+          :type="{'is-danger': $v.form.street_zip.$error}"
+          :message="{'Postal Code is required': !$v.form.street_zip.zip,
+            'Postal Code should be blank': !$v.form.street_zip.notApplicable
+          }"
+        >
           <b-input v-model="form.street_zip" @blur="blurZip"></b-input>
         </b-field>
       </div>
@@ -80,17 +131,26 @@
         </b-switch>
       </div>
       <div class="column is-full" v-if="!same">
-        <b-field label="Address">
+        <b-field label="Address"
+          :type="{'is-danger': $v.form.mailing_address.$error}"
+          :message="{'Street Address is required': $v.form.mailing_address.$error}"
+        >
           <b-input v-model="form.mailing_address"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-6-desktop" v-if="!same">
-        <b-field label="City">
+        <b-field label="City"
+          :type="{'is-danger': $v.form.mailing_city.$error}"
+          :message="{'Street Address is required': $v.form.mailing_city.$error}"
+        >
           <b-input v-model="form.mailing_city"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-3-desktop" v-if="!same">
-        <b-field label="State">
+        <b-field label="State"
+          :type="{'is-danger': $v.form.mailing_state.$error}"
+          :message="{'Street Address is required': $v.form.mailing_state.$error}"
+        >
           <b-autocomplete
             v-model="form.mailing_state"
             :data="filteredMailingStateArray"
@@ -102,7 +162,12 @@
         </b-field>
       </div>
       <div class="column is-2-tablet is-3-desktop" v-if="!same">
-        <b-field label="Zip">
+        <b-field label="Zip"
+          :type="{'is-danger': $v.form.mailing_zip.$error}"
+          :message="{'Postal Code is required': !$v.form.mailing_zip.zip,
+            'Postal Code should be blank': !$v.form.mailing_zip.notApplicable
+          }"
+        >
           <b-input v-model="form.mailing_zip"></b-input>
         </b-field>
       </div>
@@ -254,13 +319,14 @@
         </b-field>
       </div>
     </div>
+
     <!-- BUTTONS -->
     <div class="columns is-multiline">
       <div class="column is-full">
       </div>
       <div class="column is-full has-text-right">
         <b-button @click="$router.go(-1)" outlined>Cancel</b-button>
-        <b-button @click="submitForm" type="is-dark" inverted>Submit</b-button>
+        <b-button @click="submitForm" type="is-dark" inverted :disabled="submit_locked">Submit</b-button>
       </div>
       <div class="column is-full">
       </div>
@@ -270,7 +336,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import { required, minLength, email, requiredIf, requiredUnless, or } from 'vuelidate/lib/validators'
 import Cleave from 'cleave.js'
 // require('cleave.js/dist/addons/cleave-phone.us.js')
 const cleave = {
@@ -349,7 +415,118 @@ export default {
           numeral: true,
           numeralThousandsGroupStyle: 'thousand',
           prefix: '$ '
+        },
+        phoneNumber: {
+          // phone: true,
+          // phoneRegionCode: 'US'
+          numericOnly: true,
+          blocks: [0, 3, 3, 4],
+          delimiters: ['(', ') ', '-']
         }
+      }
+    }
+  },
+  // ===========================================================================================================
+  // ===========================================================================================================
+  // VALIDATION SECTION
+  validations: {
+    form: {
+      first_name: {
+        required: required
+      },
+      last_name: {
+        required: required
+      },
+      phone_home: {
+        required: or(requiredUnless('phone_work'), requiredUnless('email')),
+        minLength: minLength(14)
+      },
+      phone_work: {
+        required: or(requiredUnless('phone_home'), requiredUnless('email')),
+        minLength: minLength(14)
+      },
+      email: {
+        required: or(requiredUnless('phone_home'), requiredUnless('phone_work')),
+        email: email
+      },
+      street_address: {
+        required
+      },
+      street_city: {
+        required
+      },
+      street_state: {
+        required
+      },
+      street_zip: {
+        notApplicable (value) {
+          if (this.form.street_state !== 'Not Applicable') {
+            return true
+          }
+          return value.toString().length === 0
+        },
+        zip (value) {
+          if (!this.form.street_state) {
+            return false
+          }
+          let abvr = this.form.street_state.toString().toLowerCase().split(' ').join('').substr(0, 4)
+          if (abvr === 'nota') {
+            return true
+          }
+          if (abvr.match('albe|brit|mani|newb|newf|nova|nuna|nort|onta|prin|queb|sask|yuko')) {
+            let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
+            return ca.test(value)
+          }
+          let us = /(^\d{5}$)|(^\d{5}-\d{4}$)/
+          return us.test(value)
+        }
+      },
+      mailing_address: {
+        required: requiredIf(function () {
+          return !this.same
+        })
+      },
+      mailing_city: {
+        required: requiredIf(function () {
+          return !this.same
+        })
+      },
+      mailing_state: {
+        required: requiredIf(function () {
+          return !this.same
+        })
+      },
+      mailing_zip: {
+        notApplicable (value) {
+          if (this.same) {
+            return true
+          }
+          if (this.form.mailing_state !== 'Not Applicable') {
+            return true
+          }
+          return value.toString().length === 0
+        },
+        zip (value) {
+          if (this.same) {
+            return true
+          }
+          if (!this.form.mailing_state) {
+            return false
+          }
+          let abvr = this.form.mailing_state.toLowerCase().split(' ').join('').substr(0, 4)
+          if (abvr === 'nota') {
+            return true
+          }
+          if (abvr.match('albe|brit|mani|newb|newf|nova|nuna|nort|onta|prin|queb|sask|yuko')) {
+            let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
+            return ca.test(value)
+          }
+          let us = /(^\d{5}$)|(^\d{5}-\d{4}$)/
+          return us.test(value)
+        }
+      },
+      hull_serial_number: {
+        required
       }
     }
   },
@@ -427,6 +604,27 @@ export default {
   },
   methods: {
     submitForm: function () {
+      this.submit_locked = true
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.formErrors()
+        return
+      }
+      this.submit_locked = false
+      console.log('no errors')
+    },
+    formErrors: function () {
+      this.$buefy.notification.open({
+        duration: 2500,
+        message: `There are errors on this form`,
+        position: 'is-bottom',
+        type: 'is-danger',
+        hasIcon: true,
+        closable: false
+      })
+      setTimeout(() => {
+        this.submit_locked = false
+      }, 2400)
     },
     // DROPDOWN FILTERS
     hullChanged: function (value) {

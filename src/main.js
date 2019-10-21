@@ -5,6 +5,7 @@ import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import 'bulmaswatch/cyborg/bulmaswatch.min.css'
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 import App from './App'
 import router from './router'
 import store from './store'
@@ -14,6 +15,7 @@ Vue.config.productionTip = false
 
 Vue.use(Buefy)
 Vue.use(VueLodash)
+Vue.use(Vuelidate)
 
 /* eslint-disable no-new */
 new Vue({
