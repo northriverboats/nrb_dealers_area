@@ -101,6 +101,7 @@
             :data="filteredStreetStateArray"
             placeholder="e.g. Oregon"
             :keep-first="true"
+            :open-on-focus="true"
             @input="blurState"
             >
             <template slot="empty">No results found</template>
@@ -156,6 +157,7 @@
             :data="filteredMailingStateArray"
             placeholder="e.g. Oregon"
             :keep-first="true"
+            :open-on-focus="true"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -180,13 +182,17 @@
         <hr class="has-background-white">
       </div>
       <div class="column is-6-tablet is-4-desktop">
-        <b-field label="Hull Serial Number">
+        <b-field label="Hull Serial Number"
+          :type="{'is-danger': $v.form.hull_serial_number.$error}"
+          :message="{'Street Address is required': $v.form.hull_serial_number.$error}"
+        >
           <b-autocomplete
             v-model="form.hull_serial_number"
             :data="filteredHullsArray"
             field="id"
             placeholder="e.g. NRB 21045 B818"
             :keep-first="true"
+            :open-on-focus="true"
             @select="hullChanged"
             >
             <template slot="empty">No results found</template>
@@ -199,13 +205,18 @@
         </b-field>
       </div>
       <div class="column is-one-half-tablet is-4-desktop">
-        <b-field label="Date Purchased">
+        <b-field label="Date Purchased"
+          :type="{'is-danger': $v.other.date_purchased.$error}"
+          :message="{'Purchase date is required': $v.other.date_purchased.$error}"
+        >
           <b-datepicker
             is-info
-            v-model="form.date_purchased"
+            v-model="other.date_purchased"
             placeholder="Type or select a date..."
             icon="calendar-today"
-            editable>
+            editable
+            @input="changePurchaseDate"
+            >
         </b-datepicker>
         </b-field>
       </div>
@@ -215,7 +226,11 @@
         </b-field>
       </div>
       <div class="column is-one-half-tablet is-7-desktop">
-        <b-field label="Salesperson">
+        <b-field
+          label="Salesperson"
+          :type="{'is-danger': $v.form.salesperson.$error}"
+          :message="{'Salesperson is required': $v.form.salesperson.$error}"
+        >
           <b-input v-model="form.salesperson"></b-input>
         </b-field>
       </div>
@@ -228,7 +243,10 @@
         <hr class="has-background-white">
       </div>
       <div class="column is-5-tablet is-3-desktop">
-        <b-field label="Trailer Model">
+        <b-field label="Trailer Model"
+          :type="{'is-danger': $v.form.trailer_model.$error}"
+          :message="{'Trailer Model is required': $v.form.trailer_model.$error}"
+        >
           <b-autocomplete
             v-model="form.trailer_model"
             :data="filteredTrailerListArray"
@@ -240,7 +258,10 @@
         </b-field>
       </div>
       <div class="column is-7-tablet is-9-desktop">
-        <b-field label="Trailer Serial">
+        <b-field label="Trailer Serial"
+          :type="{'is-danger': $v.form.trailer_serial_number.$error}"
+          :message="{'Trailer Serial Number is required': $v.form.trailer_serial_number.$error}"
+        >
           <b-input v-model="form.trailer_serial_number"></b-input>
         </b-field>
       </div>
@@ -253,68 +274,100 @@
         <hr class="has-background-white">
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 1 Make">
+        <b-field label="Engine 1 Make"
+          :type="{'is-danger': $v.form.engine_1_make.$error}"
+          :message="{'Make is required': $v.form.engine_1_make.$error}"
+        >
           <b-autocomplete
             v-model="form.engine_1_make"
             :data="filteredEngine1MakeListArray"
             placeholder="e.g. Yamaha"
             :keep-first="true"
+            :open-on-focus="true"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 1 Model">
+        <b-field label="Engine 1 Model"
+          :type="{'is-danger': $v.form.engine_1_model.$error}"
+          :message="{'Engine Model is required': $v.form.engine_1_model.$error}"
+        >
           <b-input v-model="form.engine_1_model"></b-input>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 1 Serial Number">
+        <b-field label="Engine 1 Serial Number"
+          :type="{'is-danger': $v.form.engine_1_serial_number.$error}"
+          :message="{'Engine Serial Number is required': $v.form.engine_1_serial_number.$error}"
+        >
           <b-input v-model="form.engine_1_serial_number"></b-input>
         </b-field>
       </div>
+
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 2 Make">
+        <b-field label="Engine 2 Make"
+          :type="{'is-danger': $v.form.engine_2_make.$error}"
+          :message="{'Make is required': $v.form.engine_2_make.$error}"
+        >
           <b-autocomplete
             v-model="form.engine_2_make"
             :data="filteredEngine2MakeListArray"
             placeholder="e.g. Yamaha"
             :keep-first="true"
+            :open-on-focus="true"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 2 Model">
+        <b-field label="Engine 2 Model"
+          :type="{'is-danger': $v.form.engine_2_model.$error}"
+          :message="{'Engine Model is required': $v.form.engine_2_model.$error}"
+        >
           <b-input v-model="form.engine_2_model"></b-input>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 2 Serial Number">
+        <b-field label="Engine 2 Serial Number"
+          :type="{'is-danger': $v.form.engine_2_serial_number.$error}"
+          :message="{'Engine Serial Number is required': $v.form.engine_2_serial_number.$error}"
+        >
           <b-input v-model="form.engine_2_serial_number"></b-input>
         </b-field>
       </div>
+
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 3 Make">
+        <b-field label="Engine 3 Make"
+          :type="{'is-danger': $v.form.engine_3_make.$error}"
+          :message="{'Make is required': $v.form.engine_3_make.$error}"
+        >
           <b-autocomplete
             v-model="form.engine_3_make"
             :data="filteredEngine3MakeListArray"
             placeholder="e.g. Yamaha"
             :keep-first="true"
+            :open-on-focus="true"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 3 Model">
+        <b-field label="Engine 3 Model"
+          :type="{'is-danger': $v.form.engine_3_model.$error}"
+          :message="{'Engine Model is required': $v.form.engine_3_model.$error}"
+        >
           <b-input v-model="form.engine_3_model"></b-input>
         </b-field>
       </div>
       <div class="column is-4-tablet is-4-desktop">
-        <b-field label="Engine 3 Serial Number">
+        <b-field label="Engine 3 Serial Number"
+          :type="{'is-danger': $v.form.engine_3_serial_number.$error}"
+          :message="{'Engine Serial Number is required': $v.form.engine_3_serial_number.$error}"
+        >
           <b-input v-model="form.engine_3_serial_number"></b-input>
         </b-field>
       </div>
@@ -351,6 +404,12 @@ const cleave = {
   }
 }
 
+// Validators
+const atLeastNone = (value) => value.toLowerCase() === 'none' ||
+  value.toLowerCase().split(' ').join('') === 'na' ||
+  value.toLowerCase().split(' ').join('') === 'n/a' ||
+  value.length > 8
+
 export default {
   name: 'DRIform',
   directives: { cleave },
@@ -360,8 +419,8 @@ export default {
       name: '',
       id: 0,
       dealership: 0,
-      date_received_start: '',
-      date_received_end: '',
+      date_received_start: null,
+      date_received_end: null,
       hull_serial_number: '',
       isFormValid: false,
       same: true,
@@ -389,7 +448,7 @@ export default {
         // dealership
         salesperson: '',
         // purchased
-        date_purchased: null,
+        date_purchased: '',
         dealership: '',
         hull_serial_number: '',
         // trailer
@@ -405,6 +464,9 @@ export default {
         engine_3_make: '',
         engine_3_model: '',
         engine_3_serial_number: ''
+      },
+      other: {
+        date_purchased: null
       },
       masks: {
         creditCard: {
@@ -527,6 +589,62 @@ export default {
       },
       hull_serial_number: {
         required
+      },
+      salesperson: {
+        required
+      },
+      trailer_model: {
+        required
+      },
+      trailer_serial_number: {
+        atLeastNone
+      },
+      engine_1_make: {
+        required (v) {
+          if (v) {
+            return true
+          }
+          return !(this.form.engine_1_model || this.form.engine_1_serial_number)
+        }
+      },
+      engine_1_model: {
+        required: requiredIf('engine_1_make')
+      },
+      engine_1_serial_number: {
+        required: requiredIf('engine_1_make')
+      },
+      engine_2_make: {
+        required (v) {
+          if (v) {
+            return true
+          }
+          return !(this.form.engine_2_model || this.form.engine_2_serial_number)
+        }
+      },
+      engine_2_model: {
+        required: requiredIf('engine_2_make')
+      },
+      engine_2_serial_number: {
+        required: requiredIf('engine_2_make')
+      },
+      engine_3_make: {
+        required (v) {
+          if (v) {
+            return true
+          }
+          return !(this.form.engine_3_model || this.form.engine_3_serial_number)
+        }
+      },
+      engine_3_model: {
+        required: requiredIf('engine_3_make')
+      },
+      engine_3_serial_number: {
+        required: requiredIf('engine_3_make')
+      }
+    },
+    other: {
+      date_purchased: {
+        required
       }
     }
   },
@@ -603,7 +721,17 @@ export default {
     }
   },
   methods: {
-    submitForm: function () {
+    logMe (value) {
+      console.log(value)
+    },
+    changePurchaseDate () {
+      if (this.other.date_purchased) {
+        this.form.date_purchased = this.$moment(this.other.date_purchased).format('MM/DD/YYYY')
+      } else {
+        this.form.date_purchased = ''
+      }
+    },
+    submitForm () {
       this.submit_locked = true
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -613,7 +741,7 @@ export default {
       this.submit_locked = false
       console.log('no errors')
     },
-    formErrors: function () {
+    formErrors () {
       this.$buefy.notification.open({
         duration: 2500,
         message: `There are errors on this form`,
@@ -627,15 +755,17 @@ export default {
       }, 2400)
     },
     // DROPDOWN FILTERS
-    hullChanged: function (value) {
+    hullChanged (value) {
       if (value !== null) {
         this.form.dealership = value.dealership
         this.form.model = value.model
-        this.form.date_purchased = null
+        this.form.date_purchased = ''
+        this.other.date_purchased = null
       } else {
         if (this.isNRB) { this.form.dealership = '' }
         this.form.model = ''
-        this.form.date_purchased = null
+        this.form.date_purchased = ''
+        this.other.date_purchased = null
       }
     },
     flipAddressBlock: function () {

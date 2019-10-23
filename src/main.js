@@ -10,12 +10,15 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueLodash from 'vue-lodash'
+import VueMoment from 'vue-moment'
+import moment from 'moment-timezone'
 
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
 Vue.use(VueLodash)
 Vue.use(Vuelidate)
+Vue.use(VueMoment, { moment })
 
 /* eslint-disable no-new */
 new Vue({
