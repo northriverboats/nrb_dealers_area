@@ -181,25 +181,7 @@
         <h3 class="title">Boat Information</h3>
         <hr class="has-background-white">
       </div>
-      <div class="column is-6-tablet is-8-desktop">
-      </div>
-       <div class="column is-one-half-tablet is-4-desktop">
-        <b-field label="Date of Purchase Deposit"
-          :type="{'is-danger': $v.other.date_purchased.$error}"
-          :message="{'Purchase date is required': $v.other.date_purchased.$error}"
-        >
-          <b-datepicker
-            is-info
-            v-model="other.date_purchased"
-            placeholder="Type or select a date..."
-            icon="calendar-today"
-            editable
-            @input="changePurchaseDate"
-            >
-        </b-datepicker>
-        </b-field>
-      </div>
-      <div class="column is-6-tablet is-4-desktop">
+      <div class="column is-6-tablet is-3-desktop">
         <b-field label="Hull Serial Number"
           :type="{'is-danger': $v.form.hull_serial_number.$error}"
           :message="{'Street Address is required': $v.form.hull_serial_number.$error}"
@@ -217,12 +199,28 @@
           </b-autocomplete>
         </b-field>
       </div>
-      <div class="column is-6-tablet is-4-desktop">
+      <div class="column is-6-tablet is-3-desktop">
         <b-field label="Model">
           <b-input v-model="form.model" readonly></b-input>
         </b-field>
       </div>
-      <div class="column is-one-half-tablet is-4-desktop">
+      <div class="column is-6-tablet is-3-desktop">
+        <b-field label="Date of Purchase Deposit"
+          :type="{'is-danger': $v.other.date_purchased.$error}"
+          :message="{'Purchase date is required': $v.other.date_purchased.$error}"
+        >
+          <b-datepicker
+            is-info
+            v-model="other.date_purchased"
+            placeholder="Type or select a date..."
+            icon="calendar-today"
+            editable
+            @input="changePurchaseDate"
+            >
+        </b-datepicker>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-3-desktop">
         <b-field label="Date of Final Delivery"
           :type="{'is-danger': $v.other.date_purchased.$error}"
           :message="{'Purchase date is required': $v.other.date_purchased.$error}"
@@ -238,12 +236,12 @@
         </b-datepicker>
         </b-field>
       </div>
-      <div class="column is-one-half-tablet is-5-desktop">
+      <div class="column is-6-tablet is-5-desktop">
         <b-field label="Dealership">
           <b-input v-model="form.dealership" readonly></b-input>
         </b-field>
       </div>
-      <div class="column is-one-half-tablet is-7-desktop">
+      <div class="column is-6-tablet is-7-desktop">
         <b-field
           label="Salesperson"
           :type="{'is-danger': $v.form.salesperson.$error}"
