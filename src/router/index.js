@@ -7,6 +7,7 @@ import DRIform from '@/pages/DRIform'
 import DRIview from '@/pages/DRIview'
 import OPRform from '@/pages/OPRform'
 import OPRview from '@/pages/OPRview'
+import WarrantyVue from '@/pages/WarrantyView'
 
 Vue.use(Router)
 
@@ -46,6 +47,12 @@ export default new Router({
       path: '/oprview',
       name: 'OPRview',
       component: OPRview
+    },
+    {
+      path: '/warrantyview',
+      name: 'Warrantyview',
+      component: WarrantyVue
     }
+
   ]
 })
