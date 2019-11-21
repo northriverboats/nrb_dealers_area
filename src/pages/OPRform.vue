@@ -2,7 +2,12 @@
   <div>
     <div class="columns is-multiline">
       <div class="column is-full formgroup">
-        <h3 class="title">Original Purchaser Registration for {{ dealership }}</h3>
+        <h3 class="title">
+          Original Purchaser Registration for {{ dealership }}
+          <span class ="alignright" v-if="isEdit">
+            <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
+          </span>
+        </h3>
         <hr class="has-background-white">
       </div>
       <div class="column is-6-tablet is-7-desktop" v-if="isNRB">
@@ -394,8 +399,13 @@
       <div class="column is-full">
       </div>
       <div class="column is-full has-text-right">
-        <b-button @click="$router.go(-1)" outlined>Cancel</b-button>
-        <b-button @click="submitForm" type="is-dark" inverted :disabled="submit_locked">Submit</b-button>
+        <span v-if="isEdit">
+          <b-button @click="$router.go(-1)" type="is-info">Back</b-button>
+        </span>
+        <span v-else>
+          <b-button @click="$router.go(-1)" outlined>Cancel</b-button>
+          <b-button @click="submitForm" type="is-dark" inverted :disabled="submit_locked">Submit</b-button>
+        </span>
       </div>
       <div class="column is-full">
       </div>
@@ -433,7 +443,7 @@ export default {
     return {
       selected: null,
       name: '',
-      id: 0,
+      id: '',
       dealership: 0,
       date_received_start: null,
       date_received_end: null,
@@ -668,12 +678,17 @@ export default {
     ...mapGetters([
       'debug',
       'engineMakeList',
+      'fileName',
       'isNRB',
       'oprHulls',
+      'oprList',
       'stateList',
       'trailerList',
       'userInfo'
     ]),
+    isEdit () {
+      return this.id
+    },
     isSame () {
       return this.same ? 'Addresses are the Same' : 'Addresses are Different'
     },
@@ -739,6 +754,12 @@ export default {
   methods: {
     logMe (value) {
       console.log(value)
+    },
+    toPDF: function (id) {
+      this.$store.dispatch('readOPRPDF', id)
+        .then(() => {
+          window.open(this.fileName, '_blank')
+        })
     },
     changePurchaseDate () {
       if (this.other.date_purchased) {
@@ -876,7 +897,14 @@ export default {
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Original Purchaser Registration Form') }
 
-    this.id = this.$route.params.id.toString()
+    if (typeof (this.$route.params.id) !== 'undefined') {
+      this.id = this.$route.params.id.toString()
+      this.$store.dispatch('oprRead')
+        .then(response => {
+          this.form = this.oprList.find(hull => hull.id === this.id)
+        })
+    }
+    console.log(this.id)
     this.$store.dispatch('oprHullsRead')
     this.$store.dispatch('userInfoRead')
       .then(response => {
@@ -894,4 +922,13 @@ export default {
 </script>
 
 <style>
+div.formgroup h3 {
+  margin-bottom: 1rem !important;
+}
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}
 </style>

@@ -36,6 +36,15 @@
     </div>
     <!-- MAINTEANCE  -->
     <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
+        <h1 class="title">Warranty</h1>
+        <hr class="has-background-white">
+      <div class="columns">
+        <div class="column">
+          <router-link :to="{name: 'Warrantyview'}" class="button is-primary is-inverted is-outlined">View All Warranties</router-link>
+        </div>
+      </div>
+    </div>
+    <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
         <h1 class="title">Contact Us</h1>
         <hr class="has-background-white">
       <div class="columns">

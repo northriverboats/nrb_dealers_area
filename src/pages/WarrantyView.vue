@@ -76,14 +76,14 @@
             {{ props.row.status }}
           </b-table-column>
           <b-table-column custom-key="pdf">
-            <a href="#" @click="toPDF(props.row.id)">
+            <a href="#" @click="toPDF(props.row.uid)">
               <b-icon icon="file-pdf-box" ></b-icon>
             </a>
           </b-table-column>
           <b-table-column custom-key="edit">
-            <a href="#" @click="toEdit(props.row.hull_serial_number)">
+            <router-link :to="{path: `Warrantyform/${props.row.id}`}" >
               <b-icon icon="pencil" ></b-icon>
-            </a>
+            </router-link>
           </b-table-column>
         </template>
         </b-table>
@@ -125,7 +125,8 @@ export default {
       */
     },
     toEdit: function (id) {
-      alert('Not yet ' + id + ' is not ready.')
+      this.$router.push({ path: `/warrantyform/${id}/` })
+      // this.$router.push({ name: 'Warrantyform', params: { id: id } })
     },
     titleCase: function (str) {
       str = str || ''
