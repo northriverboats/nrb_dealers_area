@@ -437,7 +437,7 @@ const atLeastNone = (value) => value.toLowerCase() === 'none' ||
   value.length > 8
 
 export default {
-  name: 'DRIform',
+  name: 'OPRform',
   directives: { cleave },
   data () {
     return {
@@ -681,7 +681,7 @@ export default {
       'fileName',
       'isNRB',
       'oprHulls',
-      'oprList',
+      'oprs',
       'stateList',
       'trailerList',
       'userInfo'
@@ -899,12 +899,11 @@ export default {
 
     if (typeof (this.$route.params.id) !== 'undefined') {
       this.id = this.$route.params.id.toString()
-      this.$store.dispatch('oprRead')
+      this.$store.dispatch('oprsRead', this.id)
         .then(response => {
-          this.form = this.oprList.find(hull => hull.id === this.id)
+          this.form = this.oprs.find(hull => hull.id === this.id)
         })
     }
-    console.log(this.id)
     this.$store.dispatch('oprHullsRead')
     this.$store.dispatch('userInfoRead')
       .then(response => {
@@ -915,7 +914,6 @@ export default {
           this.dealership = this.userInfo
           this.form.dealership = this.userInfo
         }
-        // this.$nextTick(() => { this.$v.$reset() })
       })
   }
 }

@@ -16,6 +16,11 @@ export default {
   name: 'DRIform',
   data () {
     return {
+      id: '',
+      dealership: '',
+      form: {
+        dealership: ''
+      },
       searchTerm: ''
     }
   },
@@ -24,6 +29,7 @@ export default {
       'dealers',
       'debug',
       'driHulls',
+      'dris',
       'fileName',
       'isNRB',
       'userInfo'
@@ -33,6 +39,15 @@ export default {
   },
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Dealer Receipt Inspection Form') }
+    if (typeof (this.$route.params.id) !== 'undefined') {
+      this.id = this.$route.params.id.toString()
+      this.$store.dispatch('drisRead', this.id)
+        .then(response => {
+          this.form = this.dris.find(hull => hull.id === this.id)
+        })
+    }
+    this.$store.dispatch('dealersRead')
+    this.$store.dispatch('driHullsRead')
 
     this.$store.dispatch('userInfoRead')
       .then(() => {
@@ -43,8 +58,6 @@ export default {
           this.form.dealership = this.userInfo
         }
       })
-    this.$store.dispatch('dealersRead')
-    this.$store.dispatch('driHullsRead')
   }
 }
 </script>

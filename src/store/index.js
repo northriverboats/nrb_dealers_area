@@ -28,11 +28,13 @@ export default new Vuex.Store({
     dealersGroup: [],
     driHulls: [], // Uncompleted DRIs -- serial numbers
     driList: [], // Completed DRIs -- partial info
+    dris: [], // actual full dri's
     fileName: '',
     allHulls: [],
     loadCount: 0,
     oprHulls: [], // Uncompleted OPRs -- serial numbers
     oprList: [], // Completed OPRs -- partial info
+    oprs: [], // actual full opr's
     serviceRates: [],
     serviceReasons: [],
     userInfo: '',
@@ -183,12 +185,14 @@ export default new Vuex.Store({
     dealerships: state => state.dealerships,
     driHulls: state => state.driHulls,
     driList: state => state.driList,
+    dris: state => state.dris,
     fileName: state => state.fileName,
     allHulls: state => state.allHulls,
     isNRB: state => { return state.userInfo === 'North River Boats' },
     isLoading: state => state.loadCount,
     oprHulls: state => state.oprHulls,
     oprList: state => state.oprList,
+    oprs: state => state.oprs,
     serviceRates: state => state.serviceRates,
     serviceReasons: state => state.serviceReasons,
     userInfo: state => state.userInfo,
@@ -267,11 +271,23 @@ export default new Vuex.Store({
     DRI_READ (state, driList) {
       state.driList = driList
     },
+    DRIS_CREATE (state, dri) {
+      state.dris.push(dri)
+    },
+    DRIS_READ (state, dri) {
+      state.dris.push(dri)
+    },
     OPR_CREATE (state, opr) {
       state.oprList.push(opr)
     },
     OPR_READ (state, oprList) {
       state.oprList = oprList
+    },
+    OPRS_CREATE (state, opr) {
+      state.oprs.push(opr)
+    },
+    OPRS_READ (state, opr) {
+      state.oprs.push(opr)
     },
     OPRHULLS_READ (state, oprHulls) {
       state.oprHulls = oprHulls
@@ -390,7 +406,7 @@ export default new Vuex.Store({
     },
     // DRIHULLS cRud
     driHullsRead ({ commit, state }) {
-      if (state.driDealerHulls.length > 0) {
+      if (state.driHulls.length > 0) {
         if (state.debug) { console.log('  ALREADY READ: /api/drihulls') }
         return
       }
@@ -401,6 +417,32 @@ export default new Vuex.Store({
           commit('DRIHULLS_READ', response.data)
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  READ: /api/drihulls') }
+        })
+    },
+    // DRIS CRUD
+    drisCreate ({ commit, state }, form) {
+      commit('INCLOAD', 1)
+      return axios
+        .post('dri', form)
+        .then((response) => {
+          commit('DRI_CREATE', response.data)
+          commit('DRIHULLS_DELETE', form.get('hull_serial_number'))
+          commit('DECLOAD', 1)
+          if (state.debug) { console.log('  CREATE: /api/dri') }
+        })
+    },
+    drisRead ({ commit, state }, id) {
+      if (typeof (state.dris.find(hull => hull.id === id)) !== 'undefined') {
+        if (state.debug) { console.log('  ALREADY READ: /api/dri' + id) }
+        return
+      }
+      commit('INCLOAD', 1)
+      return axios
+        .get('dri/' + id)
+        .then((response) => {
+          commit('DRIS_READ', response.data[0])
+          commit('DECLOAD', 1)
+          if (state.debug) { console.log('  READ: /api/dri/' + id) }
         })
     },
     // DRILIST CRUD
@@ -454,6 +496,20 @@ export default new Vuex.Store({
           commit('OPRHULLS_DELETE', form.get('hull_serial_number'))
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  CREATE: /api/opr') }
+        })
+    },
+    oprsRead ({ commit, state }, id) {
+      if (typeof (state.oprs.find(hull => hull.id === id)) !== 'undefined') {
+        if (state.debug) { console.log('  ALREADY READ: /api/opr' + id) }
+        return
+      }
+      commit('INCLOAD', 1)
+      return axios
+        .get('opr/' + id)
+        .then((response) => {
+          commit('OPRS_READ', response.data[0])
+          commit('DECLOAD', 1)
+          if (state.debug) { console.log('  READ: /api/opr/' + id) }
         })
     },
     oprRead ({ commit, state }) {
@@ -526,14 +582,14 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  READ: /api/contact_us/pdf/' + id) }
         })
     },
-    readDRIPDF ({ commit, state }, id) {
+    readopPDF ({ commit, state }, id) {
       commit('INCLOAD', 1)
       return axios
-        .get('dri/pdf/' + id)
+        .get('op/pdf/' + id)
         .then((response) => {
           commit('FILENAME_SET', response.data.filename)
           commit('DECLOAD', 1)
-          if (state.debug) { console.log('  READ: /api/dri/pdf/' + id) }
+          if (state.debug) { console.log('  READ: /api/op/pdf/' + id) }
         })
     },
     readOPRPDF ({ commit, state }, id) {
