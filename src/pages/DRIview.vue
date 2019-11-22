@@ -61,9 +61,9 @@
             </a>
           </b-table-column>
           <b-table-column custom-key="edit">
-            <a href="#" @click="toEdit(props.row.hull_serial_number)">
+            <router-link :to="{path: `DRIform/${props.row.id}`}" >
               <b-icon icon="pencil" ></b-icon>
-            </a>
+            </router-link>
           </b-table-column>
         </template>
         </b-table>
