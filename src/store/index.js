@@ -582,14 +582,14 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  READ: /api/contact_us/pdf/' + id) }
         })
     },
-    readopPDF ({ commit, state }, id) {
+    readDRIPDF ({ commit, state }, id) {
       commit('INCLOAD', 1)
       return axios
-        .get('op/pdf/' + id)
+        .get('dri/pdf/' + id)
         .then((response) => {
           commit('FILENAME_SET', response.data.filename)
           commit('DECLOAD', 1)
-          if (state.debug) { console.log('  READ: /api/op/pdf/' + id) }
+          if (state.debug) { console.log('  READ: /api/dri/pdf/' + id) }
         })
     },
     readOPRPDF ({ commit, state }, id) {

@@ -4,7 +4,7 @@
       <div class="column is-full formgroup">
         <h3 class="title">
           Original Purchaser Registration for {{ dealership }}
-          <span class ="alignright" v-if="isEdit">
+          <span class ="alignright" v-if="readOnly">
             <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
           </span>
         </h3>
@@ -12,12 +12,12 @@
       </div>
       <div class="column is-6-tablet is-7-desktop" v-if="isNRB">
         <b-field label="Agency">
-          <b-input v-model="form.agency"></b-input>
+          <b-input v-model="form.agency" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-5-desktop" v-if="isNRB">
         <b-field label="Contract">
-          <b-input v-model="form.contrct"></b-input>
+          <b-input v-model="form.contract" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-5-desktop">
@@ -25,7 +25,7 @@
           :type="{'is-danger': $v.form.first_name.$error}"
           :message="{'First Name is Required': $v.form.first_name.$error}"
         >
-          <b-input v-model="form.first_name"></b-input>
+          <b-input v-model="form.first_name" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-7-desktop">
@@ -33,7 +33,7 @@
           :type="{'is-danger': $v.form.last_name.$error}"
           :message="{'Last Name is Required': $v.form.last_name.$error}"
         >
-          <b-input v-model="form.last_name"></b-input>
+          <b-input v-model="form.last_name" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
@@ -45,7 +45,7 @@
                && $v.form.phone_home.$error,
             'Not a valid phone number': !$v.form.phone_home.minLength}"
         >
-          <b-input v-model="form.phone_home" v-cleave="masks.phoneNumber"></b-input>
+          <b-input v-model="form.phone_home" v-cleave="masks.phoneNumber" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
@@ -57,7 +57,7 @@
                && $v.form.phone_work.$error,
             'Not a valid phone number': !$v.form.phone_work.minLength}"
         >
-          <b-input v-model="form.phone_work" v-cleave="masks.phoneNumber"></b-input>
+          <b-input v-model="form.phone_work" v-cleave="masks.phoneNumber" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-6-tablet is-6-desktop">
@@ -69,7 +69,7 @@
                && $v.form.email.$error,
             'Not a valid email address': !$v.form.email.email}"
         >
-          <b-input v-model="form.email"></b-input>
+          <b-input v-model="form.email" :readonly="readOnly"></b-input>
         </b-field>
       </div>
     </div>
@@ -85,7 +85,7 @@
           :type="{'is-danger': $v.form.street_address.$error}"
           :message="{'Street Address is required': $v.form.street_address.$error}"
         >
-          <b-input v-model="form.street_address" @blur="blurAddress"></b-input>
+          <b-input v-model="form.street_address" @blur="blurAddress" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-6-desktop">
@@ -93,7 +93,7 @@
           :type="{'is-danger': $v.form.street_city.$error}"
           :message="{'City is required': $v.form.street_city.$error}"
         >
-          <b-input v-model="form.street_city" @blur="blurCity"></b-input>
+          <b-input v-model="form.street_city" @blur="blurCity" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-3-desktop">
@@ -104,6 +104,7 @@
           <b-autocomplete
             v-model="form.street_state"
             :data="filteredStreetStateArray"
+            :readonly="readOnly"
             placeholder="e.g. Oregon"
             :keep-first="true"
             :open-on-focus="true"
@@ -120,7 +121,7 @@
             'Postal Code should be blank': !$v.form.street_zip.notApplicable
           }"
         >
-          <b-input v-model="form.street_zip" @blur="blurZip"></b-input>
+          <b-input v-model="form.street_zip" @blur="blurZip" :readonly="readOnly"></b-input>
         </b-field>
       </div>
     </div>
@@ -132,7 +133,7 @@
         <hr class="has-background-white">
       </div>
       <div class="column is-full">
-        <b-switch v-model="same" type="is-success" @input="flipAddressBlock">
+        <b-switch v-model="same" type="is-success" @input="flipAddressBlock" :disabled="readOnly">
           {{ isSame }}
         </b-switch>
       </div>
@@ -141,7 +142,7 @@
           :type="{'is-danger': $v.form.mailing_address.$error}"
           :message="{'Street Address is required': $v.form.mailing_address.$error}"
         >
-          <b-input v-model="form.mailing_address"></b-input>
+          <b-input v-model="form.mailing_address" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-6-desktop" v-if="!same">
@@ -149,7 +150,7 @@
           :type="{'is-danger': $v.form.mailing_city.$error}"
           :message="{'Street Address is required': $v.form.mailing_city.$error}"
         >
-          <b-input v-model="form.mailing_city"></b-input>
+          <b-input v-model="form.mailing_city" :readonly="readOnly"></b-input>
         </b-field>
       </div>
       <div class="column is-5-tablet is-3-desktop" v-if="!same">
@@ -160,6 +161,7 @@
           <b-autocomplete
             v-model="form.mailing_state"
             :data="filteredMailingStateArray"
+            :readonly="readOnly"
             placeholder="e.g. Oregon"
             :keep-first="true"
             :open-on-focus="true"
@@ -175,7 +177,7 @@
             'Postal Code should be blank': !$v.form.mailing_zip.notApplicable
           }"
         >
-          <b-input v-model="form.mailing_zip"></b-input>
+          <b-input v-model="form.mailing_zip" :readonly="readOnly"></b-input>
         </b-field>
       </div>
     </div>
@@ -194,6 +196,7 @@
           <b-autocomplete
             v-model="form.hull_serial_number"
             :data="filteredHullsArray"
+            :readonly="readOnly"
             field="id"
             placeholder="e.g. NRB 21045 B818"
             :keep-first="true"
@@ -211,34 +214,48 @@
       </div>
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Date of Purchase Deposit"
-          :type="{'is-danger': $v.other.date_purchased.$error}"
-          :message="{'Purchase date is required': $v.other.date_purchased.$error}"
+          :type="{'is-danger': $v.other.date_deposit.$error}"
+          :message="{'Purchase date is required': $v.other.date_deposit.$error}"
         >
-          <b-datepicker
-            is-info
-            v-model="other.date_purchased"
-            placeholder="Type or select a date..."
-            icon="calendar-today"
-            editable
-            @input="changePurchaseDate"
-            >
-        </b-datepicker>
+          <span v-if="readOnly">
+            <b-input v-model="other.date_deposit" readonly></b-input>
+          </span>
+          <span v-else>
+            <b-datepicker
+              is-info
+              v-model="other.date_deposit"
+              :date-formatter="dateFormatter"
+              :min-date="date_deposit_start"
+              :max-date="date_deposit_end"
+              placeholder="Type or select a date..."
+              icon="calendar-today"
+              @input="changeDepositDate"
+              >
+            </b-datepicker>
+          </span>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Date of Final Delivery"
-          :type="{'is-danger': $v.other.date_purchased.$error}"
-          :message="{'Purchase date is required': $v.other.date_purchased.$error}"
+          :type="{'is-danger': $v.other.date_delivered.$error}"
+          :message="{'Purchase date is required': $v.other.date_delivered.$error}"
         >
-          <b-datepicker
-            is-info
-            v-model="other.date_purchased"
-            placeholder="Type or select a date..."
-            icon="calendar-today"
-            editable
-            @input="changePurchaseDate"
-            >
-        </b-datepicker>
+          <span v-if="readOnly">
+            <b-input v-model="other.date_delivered" readonly></b-input>
+          </span>
+          <span v-else>
+            <b-datepicker
+              is-info
+              v-model="other.date_delivered"
+              :date-formatter="dateFormatter"
+              :min-date="date_delivered_start"
+              :max-date="date_delivered_end"
+              placeholder="Type or select a date..."
+              icon="calendar-today"
+              @input="changeDeliveredDate"
+              >
+            </b-datepicker>
+          </span>
         </b-field>
       </div>
       <div class="column is-6-tablet is-5-desktop">
@@ -399,7 +416,7 @@
       <div class="column is-full">
       </div>
       <div class="column is-full has-text-right">
-        <span v-if="isEdit">
+        <span v-if="readOnly">
           <b-button @click="$router.go(-1)" type="is-info">Back</b-button>
         </span>
         <span v-else>
@@ -445,8 +462,10 @@ export default {
       name: '',
       id: '',
       dealership: 0,
-      date_received_start: null,
-      date_received_end: null,
+      date_delivered_start: null,
+      date_delivered_end: null,
+      date_deposit_start: null,
+      date_deposit_end: null,
       hull_serial_number: '',
       isFormValid: false,
       same: true,
@@ -474,7 +493,7 @@ export default {
         // dealership
         salesperson: '',
         // purchased
-        date_purchased: '',
+        date_delivered: '',
         dealership: '',
         hull_serial_number: '',
         // trailer
@@ -492,7 +511,8 @@ export default {
         engine_3_serial_number: ''
       },
       other: {
-        date_purchased: null
+        date_delivered: null,
+        date_deposit: null
       },
       masks: {
         creditCard: {
@@ -669,11 +689,17 @@ export default {
       }
     },
     other: {
-      date_purchased: {
+      date_delivered: {
+        required
+      },
+      date_deposit: {
         required
       }
     }
   },
+  // ===========================================================================================================
+  // ===========================================================================================================
+  // COMPUTED SECTION
   computed: {
     ...mapGetters([
       'debug',
@@ -686,8 +712,11 @@ export default {
       'trailerList',
       'userInfo'
     ]),
-    isEdit () {
-      return this.id
+    readOnly () {
+      return !!this.id
+    },
+    notReadOnly () {
+      return !this.id
     },
     isSame () {
       return this.same ? 'Addresses are the Same' : 'Addresses are Different'
@@ -751,6 +780,9 @@ export default {
       })
     }
   },
+  // ===========================================================================================================
+  // ===========================================================================================================
+  // METHODS SECTION
   methods: {
     logMe (value) {
       console.log(value)
@@ -761,12 +793,47 @@ export default {
           window.open(this.fileName, '_blank')
         })
     },
-    changePurchaseDate () {
-      if (this.other.date_purchased) {
-        this.form.date_purchased = this.$moment(this.other.date_purchased).format('MM/DD/YYYY')
-      } else {
-        this.form.date_purchased = ''
+    dateFormatter (date) {
+      if (date) {
+        return this.$moment(date).format('MM/DD/YYYY')
       }
+      return ''
+    },
+    setDateRanges (hull) {
+      // get build_year as "20" + model_year_decade and handle corner case for I920 = 2019 not 2029
+      // this.$moment() expects yyyy-m-d or yyyy-mm-dd for input
+      var buildYear = ''
+      if (hull.charAt(11) === '9' & hull.charAt(13) === '0') {
+        buildYear = '20' + (hull.charAt(12) - 1) + hull.charAt(11)
+      } else {
+        buildYear = '20' + hull.charAt(12) + hull.charAt(11)
+      }
+      var buildMonth = ('0' + (hull.charCodeAt(10) - 64)).slice(-2)
+      var buildDay = '01'
+      var buildDate = buildYear + '-' + buildMonth + '-' + buildDay
+
+      this.date_deposit_start = this.$moment(buildDate).subtract(12, 'months').toDate()
+      this.date_deposit_end = this.$moment(new Date()).toDate()
+      this.date_delivered_start = this.$moment(buildDate).subtract(1, 'months').toDate()
+      this.date_delivered_end = this.$moment(new Date()).toDate()
+
+      console.log(this.date_deposit_start)
+      console.log(this.date_deposit_end)
+    },
+    changeDepositDate () {
+      if (this.other.date_deposit) {
+        this.form.date_deposit = this.$moment(this.other.date_deposit).format('YYYY-MM-DD')
+      } else {
+        this.form.date_deposit = ''
+      }
+    },
+    changeDeliveredDate () {
+      if (this.other.date_delivered) {
+        this.form.date_delivered = this.$moment(this.other.date_delivered).format('YYYY-MM-DD')
+      } else {
+        this.form.date_delivered = ''
+      }
+      console.log(this.form.date_delivered)
     },
     submitForm () {
       this.submit_locked = true
@@ -796,13 +863,16 @@ export default {
       if (value !== null) {
         this.form.dealership = value.dealership
         this.form.model = value.model
-        this.form.date_purchased = ''
-        this.other.date_purchased = null
+        this.form.date_delivered = ''
+        this.other.date_delivered = null
       } else {
         if (this.isNRB) { this.form.dealership = '' }
         this.form.model = ''
-        this.form.date_purchased = ''
-        this.other.date_purchased = null
+        this.form.date_delivered = ''
+        this.other.date_delivered = null
+      }
+      if (value !== null) {
+        this.setDateRanges(value.id)
       }
     },
     flipAddressBlock: function () {
@@ -897,11 +967,13 @@ export default {
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Original Purchaser Registration Form') }
 
-    if (typeof (this.$route.params.id) !== 'undefined') {
+    if (typeof (this.$route.params.id) !== 'undefined' && this.$route.params.id.toString() !== '0') {
       this.id = this.$route.params.id.toString()
       this.$store.dispatch('oprsRead', this.id)
         .then(response => {
           this.form = this.oprs.find(hull => hull.id === this.id)
+          this.other.date_delivered = this.$moment(this.form.date_delivered).format('MM/DD/YYYY')
+          this.other.date_deposit = this.$moment(this.form.date_deposit).format('MM/DD/YYYY')
         })
     }
     this.$store.dispatch('oprHullsRead')
