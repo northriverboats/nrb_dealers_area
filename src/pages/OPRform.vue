@@ -20,18 +20,20 @@
           <b-input v-model="form.contract" :readonly="readOnly"></b-input>
         </b-field>
       </div>
-      <div class="column is-6-tablet is-5-desktop">
+      <div class="column is-6-tablet is-5-desktop required">
         <b-field label="First Name"
           :type="{'is-danger': $v.form.first_name.$error}"
           :message="{'First Name is Required': $v.form.first_name.$error}"
+          v-bind:class="{ 'is-danger': $v.form.first_name.$error }"
         >
           <b-input v-model="form.first_name" :readonly="readOnly"></b-input>
         </b-field>
       </div>
-      <div class="column is-6-tablet is-7-desktop">
+      <div class="column is-6-tablet is-7-desktop required">
         <b-field label="Last Name"
           :type="{'is-danger': $v.form.last_name.$error}"
           :message="{'Last Name is Required': $v.form.last_name.$error}"
+          v-bind:class="{ 'is-danger': $v.form.last_name.$error }"
         >
           <b-input v-model="form.last_name" :readonly="readOnly"></b-input>
         </b-field>
@@ -44,6 +46,7 @@
                && $v.form.phone_home.minLength
                && $v.form.phone_home.$error,
             'Not a valid phone number': !$v.form.phone_home.minLength}"
+            v-bind:class="{ 'is-danger': $v.form.phone_home.$error }"
         >
           <b-input v-model="form.phone_home" v-cleave="masks.phoneNumber" :readonly="readOnly"></b-input>
         </b-field>
@@ -56,6 +59,7 @@
                && $v.form.phone_work.minLength
                && $v.form.phone_work.$error,
             'Not a valid phone number': !$v.form.phone_work.minLength}"
+            v-bind:class="{ 'is-danger': $v.form.phone_work.$error }"
         >
           <b-input v-model="form.phone_work" v-cleave="masks.phoneNumber" :readonly="readOnly"></b-input>
         </b-field>
@@ -68,6 +72,7 @@
                && $v.form.email.email
                && $v.form.email.$error,
             'Not a valid email address': !$v.form.email.email}"
+            v-bind:class="{ 'is-danger': $v.form.email.$error }"
         >
           <b-input v-model="form.email" :readonly="readOnly"></b-input>
         </b-field>
@@ -84,6 +89,7 @@
         <b-field label="Address"
           :type="{'is-danger': $v.form.street_address.$error}"
           :message="{'Street Address is required': $v.form.street_address.$error}"
+          v-bind:class="{ 'is-danger': $v.form.street_address.$error }"
         >
           <b-input v-model="form.street_address" @blur="blurAddress" :readonly="readOnly"></b-input>
         </b-field>
@@ -92,6 +98,7 @@
         <b-field label="City"
           :type="{'is-danger': $v.form.street_city.$error}"
           :message="{'City is required': $v.form.street_city.$error}"
+          v-bind:class="{ 'is-danger': $v.form.street_city.$error }"
         >
           <b-input v-model="form.street_city" @blur="blurCity" :readonly="readOnly"></b-input>
         </b-field>
@@ -100,6 +107,7 @@
         <b-field label="State"
           :type="{'is-danger': $v.form.street_state.$error}"
           :message="{'State is required': $v.form.street_state.$error}"
+          v-bind:class="{ 'is-danger': $v.form.street_state.$error }"
         >
           <b-autocomplete
             v-model="form.street_state"
@@ -120,6 +128,7 @@
           :message="{'Postal Code is required': !$v.form.street_zip.zip,
             'Postal Code should be blank': !$v.form.street_zip.notApplicable
           }"
+          v-bind:class="{ 'is-danger': $v.form.street_zip.$error }"
         >
           <b-input v-model="form.street_zip" @blur="blurZip" :readonly="readOnly"></b-input>
         </b-field>
@@ -141,6 +150,7 @@
         <b-field label="Address"
           :type="{'is-danger': $v.form.mailing_address.$error}"
           :message="{'Street Address is required': $v.form.mailing_address.$error}"
+          v-bind:class="{ 'is-danger': $v.form.mailing_address.$error }"
         >
           <b-input v-model="form.mailing_address" :readonly="readOnly"></b-input>
         </b-field>
@@ -149,6 +159,7 @@
         <b-field label="City"
           :type="{'is-danger': $v.form.mailing_city.$error}"
           :message="{'Street Address is required': $v.form.mailing_city.$error}"
+          v-bind:class="{ 'is-danger': $v.form.mailing_city.$error }"
         >
           <b-input v-model="form.mailing_city" :readonly="readOnly"></b-input>
         </b-field>
@@ -157,6 +168,7 @@
         <b-field label="State"
           :type="{'is-danger': $v.form.mailing_state.$error}"
           :message="{'Street Address is required': $v.form.mailing_state.$error}"
+          v-bind:class="{ 'is-danger': $v.form.mailing_state.$error }"
         >
           <b-autocomplete
             v-model="form.mailing_state"
@@ -176,6 +188,7 @@
           :message="{'Postal Code is required': !$v.form.mailing_zip.zip,
             'Postal Code should be blank': !$v.form.mailing_zip.notApplicable
           }"
+          v-bind:class="{ 'is-danger': $v.form.mailing_zip.$error }"
         >
           <b-input v-model="form.mailing_zip" :readonly="readOnly"></b-input>
         </b-field>
@@ -192,6 +205,7 @@
         <b-field label="Hull Serial Number"
           :type="{'is-danger': $v.form.hull_serial_number.$error}"
           :message="{'Street Address is required': $v.form.hull_serial_number.$error}"
+          v-bind:class="{ 'is-danger': $v.form.hull_serial_number.$error }"
         >
           <b-autocomplete
             v-model="form.hull_serial_number"
@@ -216,6 +230,7 @@
         <b-field label="Date of Purchase Deposit"
           :type="{'is-danger': $v.other.date_deposit.$error}"
           :message="{'Purchase date is required': $v.other.date_deposit.$error}"
+          v-bind:class="{ 'is-danger': $v.other.date_deposit.$error }"
         >
           <span v-if="readOnly">
             <b-input v-model="other.date_deposit" readonly></b-input>
@@ -239,6 +254,7 @@
         <b-field label="Date of Final Delivery"
           :type="{'is-danger': $v.other.date_delivered.$error}"
           :message="{'Purchase date is required': $v.other.date_delivered.$error}"
+          v-bind:class="{ 'is-danger': $v.other.date_delivered.$error }"
         >
           <span v-if="readOnly">
             <b-input v-model="other.date_delivered" readonly></b-input>
@@ -268,6 +284,7 @@
           label="Salesperson"
           :type="{'is-danger': $v.form.salesperson.$error}"
           :message="{'Salesperson is required': $v.form.salesperson.$error}"
+          v-bind:class="{ 'is-danger': $v.form.salesperson.$error }"
         >
           <b-input v-model="form.salesperson"></b-input>
         </b-field>
@@ -284,6 +301,7 @@
         <b-field label="Trailer Model"
           :type="{'is-danger': $v.form.trailer_model.$error}"
           :message="{'Trailer Model is required': $v.form.trailer_model.$error}"
+          v-bind:class="{ 'is-danger': $v.form.trailer_model.$error }"
         >
           <b-autocomplete
             v-model="form.trailer_model"
@@ -299,6 +317,7 @@
         <b-field label="Trailer Serial"
           :type="{'is-danger': $v.form.trailer_serial_number.$error}"
           :message="{'Trailer Serial Number is required': $v.form.trailer_serial_number.$error}"
+          v-bind:class="{ 'is-danger': $v.form.trailer_serial_number.$error }"
         >
           <b-input v-model="form.trailer_serial_number"></b-input>
         </b-field>
@@ -315,6 +334,7 @@
         <b-field label="Engine 1 Make"
           :type="{'is-danger': $v.form.engine_1_make.$error}"
           :message="{'Make is required': $v.form.engine_1_make.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_1_make.$error }"
         >
           <b-autocomplete
             v-model="form.engine_1_make"
@@ -331,6 +351,7 @@
         <b-field label="Engine 1 Model"
           :type="{'is-danger': $v.form.engine_1_model.$error}"
           :message="{'Engine Model is required': $v.form.engine_1_model.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_1_model.$error }"
         >
           <b-input v-model="form.engine_1_model"></b-input>
         </b-field>
@@ -339,6 +360,7 @@
         <b-field label="Engine 1 Serial Number"
           :type="{'is-danger': $v.form.engine_1_serial_number.$error}"
           :message="{'Engine Serial Number is required': $v.form.engine_1_serial_number.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_1_serial_number.$error }"
         >
           <b-input v-model="form.engine_1_serial_number"></b-input>
         </b-field>
@@ -348,6 +370,7 @@
         <b-field label="Engine 2 Make"
           :type="{'is-danger': $v.form.engine_2_make.$error}"
           :message="{'Make is required': $v.form.engine_2_make.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_2_make.$error }"
         >
           <b-autocomplete
             v-model="form.engine_2_make"
@@ -364,6 +387,7 @@
         <b-field label="Engine 2 Model"
           :type="{'is-danger': $v.form.engine_2_model.$error}"
           :message="{'Engine Model is required': $v.form.engine_2_model.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_2_model.$error }"
         >
           <b-input v-model="form.engine_2_model"></b-input>
         </b-field>
@@ -372,6 +396,7 @@
         <b-field label="Engine 2 Serial Number"
           :type="{'is-danger': $v.form.engine_2_serial_number.$error}"
           :message="{'Engine Serial Number is required': $v.form.engine_2_serial_number.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_2_serial_number.$error }"
         >
           <b-input v-model="form.engine_2_serial_number"></b-input>
         </b-field>
@@ -381,6 +406,7 @@
         <b-field label="Engine 3 Make"
           :type="{'is-danger': $v.form.engine_3_make.$error}"
           :message="{'Make is required': $v.form.engine_3_make.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_3_make.$error }"
         >
           <b-autocomplete
             v-model="form.engine_3_make"
@@ -397,6 +423,7 @@
         <b-field label="Engine 3 Model"
           :type="{'is-danger': $v.form.engine_3_model.$error}"
           :message="{'Engine Model is required': $v.form.engine_3_model.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_3_model.$error }"
         >
           <b-input v-model="form.engine_3_model"></b-input>
         </b-field>
@@ -405,6 +432,7 @@
         <b-field label="Engine 3 Serial Number"
           :type="{'is-danger': $v.form.engine_3_serial_number.$error}"
           :message="{'Engine Serial Number is required': $v.form.engine_3_serial_number.$error}"
+          v-bind:class="{ 'is-danger': $v.form.engine_3_serial_number.$error }"
         >
           <b-input v-model="form.engine_3_serial_number"></b-input>
         </b-field>
@@ -997,5 +1025,12 @@ div.formgroup h3 {
 }
 .alignright {
   float: right;
+}
+.required label::after {
+  content: " *";
+  color: red;
+}
+.is-danger label {
+  color: red;
 }
 </style>

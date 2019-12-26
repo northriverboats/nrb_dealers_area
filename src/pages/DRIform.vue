@@ -516,14 +516,11 @@ div.formgroup h3 {
 .alignright {
   float: right;
 }
-
 .required label::after {
   content: " *";
   color: red;
 }
-
 .is-danger label {
   color: red;
 }
-
 </style>
