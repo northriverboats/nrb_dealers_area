@@ -816,9 +816,6 @@ export default {
       this.date_deposit_end = this.$moment(new Date()).toDate()
       this.date_delivered_start = this.$moment(buildDate).subtract(1, 'months').toDate()
       this.date_delivered_end = this.$moment(new Date()).toDate()
-
-      console.log(this.date_deposit_start)
-      console.log(this.date_deposit_end)
     },
     changeDepositDate () {
       if (this.other.date_deposit) {
