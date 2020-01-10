@@ -122,70 +122,71 @@
       </div>
       <div class="column is-12-tablet is-12-desktop">
         <b-field label="Files" v-if="readOnly">
-            <a v-if="form.file_1" :href="urlFormatter(form.file_1)" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_1) }}</span></a>&nbsp;
-            <a v-if="form.file_2" :href="urlFormatter(form.file_2)" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_2) }}</span></a>&nbsp;
-            <a v-if="form.file_3" :href="urlFormatter(form.file_3)" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_3) }}</span></a>&nbsp;
-            <a v-if="form.file_4" :href="urlFormatter(form.file_4)" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_4) }}</span></a>&nbsp;
-            <a v-if="form.file_5" :href="urlFormatter(form.file_5)" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_5) }}</span></a>&nbsp;
+            <a v-if="form.file_1" :href="form.file_1" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_1) }}</span></a>&nbsp;
+            <a v-if="form.file_2" :href="form.file_2" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_2) }}</span></a>&nbsp;
+            <a v-if="form.file_3" :href="form.file_3" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_3) }}</span></a>&nbsp;
+            <a v-if="form.file_4" :href="form.file_4" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_4) }}</span></a>&nbsp;
+            <a v-if="form.file_5" :href="form.file_5" target="_blank"><span class="tag is-primary">{{ fileFormatter(form.file_5) }}</span></a>&nbsp;
         </b-field>
         <div v-else>
           <b-field label="Files">
             <div class="file">
               <b-upload
-                v-model="form.file_1"
+                v-model="file_1"
                 accept="image/*,application/pdf,application/vnd.ms-excel,application/msword"
-                :disabled="!!form.file_1"
+                :disabled="!!file_1"
+                ref="file_1"
               >
                 <a class="button is-primary">
                     <b-icon icon="upload"></b-icon>
                     <span>Click to upload</span>
                 </a>
               </b-upload>
-              <span class="file-name" style="color: black; background-color: white;" v-if="form.file_1">
-                {{ form.file_1.name }}
+              <span class="file-name" style="color: black; background-color: white;" v-if="file_1">
+                {{ file_1.name }}
               </span>
             </div>
           </b-field>
-          <b-field v-if="form.file_1">
+          <b-field v-if="file_1">
             <div class="file">
               <b-upload
-                v-model="form.file_2"
+                v-model="file_2"
                 accept="image/*,application/pdf,application/vnd.ms-excel,application/msword"
-                :disabled="!!form.file_2"
+                :disabled="!!file_2"
               >
                 <a class="button is-primary">
                     <b-icon icon="upload"></b-icon>
                     <span>Click to upload</span>
                 </a>
               </b-upload>
-              <span class="file-name" style="color: black; background-color: white;" v-if="form.file_2">
-                {{ form.file_2.name }}
+              <span class="file-name" style="color: black; background-color: white;" v-if="file_2">
+                {{ file_2.name }}
               </span>
             </div>
           </b-field>
-          <b-field v-if="form.file_2">
+          <b-field v-if="file_2">
             <div class="file">
               <b-upload
-                v-model="form.file_3"
+                v-model="file_3"
                 accept="image/*,application/pdf,application/vnd.ms-excel,application/msword"
-                :disabled="!!form.file_3"
+                :disabled="!!file_3"
               >
                 <a class="button is-primary">
                     <b-icon icon="upload"></b-icon>
                     <span>Click to upload</span>
                 </a>
               </b-upload>
-              <span class="file-name" style="color: black; background-color: white;" v-if="form.file_3">
-                {{ form.file_3.name }}
+              <span class="file-name" style="color: black; background-color: white;" v-if="file_3">
+                {{ file_3.name }}
               </span>
             </div>
           </b-field>
-          <b-field v-if="form.file_3">
+          <b-field v-if="file_3">
             <div class="file">
               <b-upload
-                v-model="form.file_4"
+                v-model="file_4"
                 accept="image/*,application/pdf,application/vnd.ms-excel,application/msword"
-                :disabled="!!form.file_4"
+                :disabled="!!file_4"
                 ref="file1"
               >
                 <a class="button is-primary">
@@ -193,17 +194,17 @@
                     <span>Click to upload</span>
                 </a>
               </b-upload>
-              <span class="file-name" style="color: black; background-color: white;" v-if="form.file_4">
-                {{ form.file_4.name }}
+              <span class="file-name" style="color: black; background-color: white;" v-if="file_4">
+                {{ file_4.name }}
               </span>
             </div>
           </b-field>
-          <b-field v-if="form.file_4">
+          <b-field v-if="file_4">
             <div class="file">
               <b-upload
-                v-model="form.file_5"
+                v-model="file_5"
                 accept="image/*,application/pdf,application/vnd.ms-excel,application/msword"
-                :disabled="!!form.file_5"
+                :disabled="!!file_5"
                 ref="file1"
               >
                 <a class="button is-primary">
@@ -211,12 +212,12 @@
                     <span>Click to upload</span>
                 </a>
               </b-upload>
-              <span class="file-name" style="color: black; background-color: white;" v-if="form.file_5">
-                {{ form.file_5.name }}
+              <span class="file-name" style="color: black; background-color: white;" v-if="file_5">
+                {{ file_5.name }}
               </span>
             </div>
           </b-field>
-          <b-field v-if="form.file_1">
+          <b-field v-if="file_1">
             <b-button
               icon-left="delete"
               type="is-primary"
@@ -257,9 +258,15 @@ export default {
   data () {
     return {
       id: '',
+      closeTimeout: null,
       dealership: '',
       date_received_start: null,
       date_received_end: null,
+      file_1: null,
+      file_2: null,
+      file_3: null,
+      file_4: null,
+      file_5: null,
       form: {
         dealership: '',
         defects_found: '',
@@ -268,12 +275,7 @@ export default {
         model: '',
         checked_by: '',
         email_address: '',
-        date_received: '',
-        file_1: null,
-        file_2: null,
-        file_3: null,
-        file_4: null,
-        file_5: null
+        date_received: ''
       },
       other: {
         date_received: null
@@ -360,16 +362,16 @@ export default {
   // METHODS SECTION
   methods: {
     delUpload () {
-      if (this.form.file_5) {
-        this.form.file_5 = null
-      } else if (this.form.file_4) {
-        this.form.file_4 = null
-      } else if (this.form.file_3) {
-        this.form.file_3 = null
-      } else if (this.form.file_2) {
-        this.form.file_2 = null
+      if (this.file_5) {
+        this.file_5 = null
+      } else if (this.file_4) {
+        this.file_4 = null
+      } else if (this.file_3) {
+        this.file_3 = null
+      } else if (this.file_2) {
+        this.file_2 = null
       } else {
-        this.form.file_1 = null
+        this.file_1 = null
       }
     },
     logMe (value) {
@@ -391,12 +393,6 @@ export default {
       if (file) {
         var parts = file.split('/')
         return parts[parts.length - 1]
-      }
-      return ''
-    },
-    urlFormatter (file) {
-      if (file) {
-        return file.substr(18)
       }
       return ''
     },
@@ -430,8 +426,29 @@ export default {
         this.formErrors()
         return
       }
-      this.submit_locked = false
-      console.log('no errors')
+
+      let formData = new FormData()
+      for (var key in this.form) {
+        formData.append(key, this.form[key])
+      }
+      for (var i = 0; i < 5; i++) {
+        if (this['file_' + i]) {
+          formData.append('files[' + i + ']', this['file_' + i])
+        }
+      }
+
+      this.$store.dispatch('drisCreate', formData)
+        .then(response => {
+          // show notification that will last 2 seconds
+          this.$buefy.notification.open({
+            message: 'Form has been saved',
+            type: 'is-success'
+          })
+          // set timer to close window after 2 seconds
+          this.closeTimeout = setTimeout(() => {
+            this.$router.go(-1)
+          }, 2000)
+        })
     },
     formErrors () {
       this.$buefy.notification.open({
@@ -502,6 +519,11 @@ export default {
           this.form.dealership = this.userInfo
         }
       })
+  },
+  beforeDestroy () {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout)
+    }
   }
 }
 </script>
