@@ -868,7 +868,6 @@ export default {
         return
       }
       this.submit_locked = false
-      console.log('no errors')
     },
     formErrors () {
       this.$buefy.notification.open({
