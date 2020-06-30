@@ -310,13 +310,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setLoadCount ({ commit, state }, count) {
+    setLoadCount ({ commit }, count) {
       commit('LOADCOUNT', count)
     },
-    decreaseLoadCount ({ commit, state }, count) {
+    decreaseLoadCount ({ commit }, count) {
       commit('DECLOAD', count)
     },
-    increaseLoadCount ({ commit, state }, count) {
+    increaseLoadCount ({ commit }, count) {
       commit('INCLOAD', count)
     },
     // ALL HULLS CRUD
@@ -353,7 +353,7 @@ export default new Vuex.Store({
       commit('INCLOAD', 1)
       return axios
         .post('contact_us/' + form.id, form)
-        .then((response) => {
+        .then(() => {
           commit('CONTACTS_UPDATE', form)
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  UPDATED: /api/contact_us') }
@@ -386,7 +386,7 @@ export default new Vuex.Store({
     dealersUpdate ({ commit, state }, form) {
       return axios
         .put('dealers/' + form.uid, form)
-        .then((response) => {
+        .then(() => {
           commit('DEALERS_UPDATE', form)
           if (state.debug) { console.log('  UPDATE: /api/dealers') }
         })

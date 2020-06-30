@@ -45,8 +45,6 @@ export default {
     loaded: function () {
       return this.isLoading > 0
     }
-  },
-  methods: {
   }
 }
 </script>

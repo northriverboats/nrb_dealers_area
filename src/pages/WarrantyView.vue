@@ -116,6 +116,7 @@ export default {
     }
   },
   methods: {
+    // eslint-disable-next-line
     toPDF: function (id) {
       /*
       this.$store.dispatch('readOPRPDF', id)

@@ -438,6 +438,7 @@ export default {
       }
 
       this.$store.dispatch('drisCreate', formData)
+        // eslint-disable-next-line
         .then(response => {
           // show notification that will last 2 seconds
           this.$buefy.notification.open({
@@ -502,6 +503,7 @@ export default {
     if (typeof (this.$route.params.id) !== 'undefined' && this.$route.params.id.toString() !== '0') {
       this.id = this.$route.params.id.toString()
       this.$store.dispatch('drisRead', this.id)
+        // eslint-disable-next-line
         .then(response => {
           this.form = this.dris.find(hull => hull.id === this.id)
           this.other.date_received = this.$moment(this.form.date_received).format('MM/DD/YYYY')

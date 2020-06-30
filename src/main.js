@@ -10,24 +10,22 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
 import VueMoment from 'vue-moment'
 import moment from 'moment-timezone'
 
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
-Vue.use(VueLodash)
+Vue.use(VueLodash, { lodash: lodash })
 Vue.use(Vuelidate)
 Vue.use(VueMoment, { moment })
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  render: h => h(App),
   router,
   store,
-  components: { App },
   created () {
     this.$store.dispatch('userInfoRead')
-  },
-  template: '<App/>'
-})
+  }
+}).$mount('#app')

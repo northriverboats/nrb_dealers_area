@@ -994,7 +994,8 @@ export default {
     if (typeof (this.$route.params.id) !== 'undefined' && this.$route.params.id.toString() !== '0') {
       this.id = this.$route.params.id.toString()
       this.$store.dispatch('oprsRead', this.id)
-        .then(response => {
+        // eslint-disable-next-line
+        .then(response => { 
           this.form = this.oprs.find(hull => hull.id === this.id)
           this.other.date_delivered = this.$moment(this.form.date_delivered).format('MM/DD/YYYY')
           this.other.date_deposit = this.$moment(this.form.date_deposit).format('MM/DD/YYYY')
@@ -1002,6 +1003,7 @@ export default {
     }
     this.$store.dispatch('oprHullsRead')
     this.$store.dispatch('userInfoRead')
+      // eslint-disable-next-line
       .then(response => {
         if (this.isNRB) {
           this.dealership = 'All Dealerships'
