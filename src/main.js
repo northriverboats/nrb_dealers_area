@@ -17,7 +17,7 @@ import moment from 'moment-timezone'
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
-Vue.use(VueLodash, { lodash: lodash })
+Vue.use(VueLodash, { lodash: lodash }) /* Vue._.  or Vue.lodash. */
 Vue.use(Vuelidate)
 Vue.use(VueMoment, { moment })
 
