@@ -20,9 +20,72 @@
           <b-input v-model="form.company" readonly></b-input>
         </b-field>
       </div>
+
       <div class="column is-12-tablet is-12-desktop">
         <b-field label="Address">
           <b-input v-model="form.address" readonly></b-input>
+        </b-field>
+      </div>
+
+      <div class="column is-12-tablet is-6-desktop">
+        <b-field label="City">
+          <b-input v-model="form.city" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-12-tablet is-3-desktop">
+        <b-field label="State">
+          <b-input v-model="form.state" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-12-tablet is-3-desktop">
+        <b-field label="Zip">
+          <b-input v-model="form.zip" readonly></b-input>
+        </b-field>
+      </div>
+
+      <div class="column is-6-tablet is-5-desktop">
+        <b-field label="Phone">
+          <b-input v-model="form.phone" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-7-desktop">
+        <b-field label="E-Mail">
+          <b-input v-model="form.email" readonly></b-input>
+        </b-field>
+      </div>
+
+      <div class="column is-6-tablet is-4-desktop">
+        <b-field label="Boat Model">
+          <b-input v-model="form.boat_model" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-2-desktop">
+        <b-field label="Boat Length">
+          <b-input v-model="form.boat_length" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-3-desktop">
+        <b-field label="Boat Use">
+          <b-input v-model="form.boat_use" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-3-desktop">
+        <b-field label="Hull Identification Number">
+          <b-input v-model="form.hull_identification_number" readonly></b-input>
+        </b-field>
+      </div>
+
+      <div class="column is-6-tablet is-3-desktop">
+        <b-field label="Subject">
+          <b-input v-model="form.subject" readonly></b-input>
+        </b-field>
+      </div>
+      <div class="column is-6-tablet is-9-desktop">
+      </div>
+
+      <div class="column is-12-tablet is-12-desktop">
+        <b-field label="Comments">
+          <b-input type="textarea" v-model="form.comments" readonly></b-input>
         </b-field>
       </div>
     </div>
@@ -47,7 +110,7 @@ export default {
         state: '',
         zip: '',
         phone: '',
-        iemail: '',
+        email: '',
         subject: '',
         boat_model: '',
         boat_length: '',
