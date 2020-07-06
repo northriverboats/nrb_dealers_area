@@ -139,6 +139,12 @@ export default {
     },
   },
   methods: {
+    toPDF: function (id) {
+      this.$store.dispatch('readContactUsPDF', id)
+        .then(() => {
+          window.open(this.fileName, '_blank')
+        })
+    },
   },
   created () {
     if (this.debug) { console.log('NAVIGATED TO: Contact Us Form') }

@@ -101,9 +101,6 @@ export default {
           window.open(this.fileName, '_blank')
         })
     },
-    toEdit: function (id) {
-      alert('Not yet ' + id + ' is not ready.')
-    },
     titleCase: function (str) {
       str = str || ''
       return str.toLowerCase().split(' ').map(function (word) {

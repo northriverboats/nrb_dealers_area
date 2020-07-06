@@ -61,9 +61,9 @@
             </a>
           </b-table-column>
           <b-table-column custom-key="edit">
-            <a href="#" @click="toEdit(props.row.id)">
+            <router-link :to="{path: `ContactUsForm/${props.row.id}`}" >
               <b-icon icon="pencil" ></b-icon>
-            </a>
+            </router-link>
           </b-table-column>
         </template>
         </b-table>
@@ -100,9 +100,6 @@ export default {
         .then(() => {
           window.open(this.fileName, '_blank')
         })
-    },
-    toEdit: function (id) {
-      this.$router.push({name: 'ContactUsForm', params: {id: id}})
     },
     titleCase: function (str) {
       str = str || ''
