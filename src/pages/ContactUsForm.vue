@@ -78,11 +78,6 @@
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Subject">
           <b-select v-model="form.subject">
-          <!--
-            <option value="Parts">Parts</option>
-            <option value="Sales">Sales</option>
-            <option value="Service">Service</option>
-          -->
             <option
               v-for="reason in recReasonList"
               :value="reason"
