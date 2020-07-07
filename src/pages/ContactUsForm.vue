@@ -77,7 +77,19 @@
 
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Subject">
-          <b-input v-model="form.subject" readonly></b-input>
+          <b-select v-model="form.subject">
+          <!--
+            <option value="Parts">Parts</option>
+            <option value="Sales">Sales</option>
+            <option value="Service">Service</option>
+          -->
+            <option
+              v-for="reason in recReasonList"
+              :value="reason"
+              :key="reason"
+            >{{ reason }}
+            </option>
+          </b-select>
         </b-field>
       </div>
       <div class="column is-6-tablet is-9-desktop">
@@ -100,6 +112,8 @@ export default {
   name: 'ContactUsForm',
   data () {
     return {
+      originalSubject: '',
+      originalDealership: '',
       api_count: 1,
       form: {
         id: 0,
@@ -129,6 +143,7 @@ export default {
       'debug',
       'fileName',
       'isNRB',
+      'recReasonList',
       'userInfo'
     ]),
     readOnly () {
@@ -136,6 +151,24 @@ export default {
     },
     notReadOnly () {
       return !this.id
+    },
+    changed () {
+      if (!this.isNRB) {
+        return true
+      }
+      if (this.submitted) {
+        return false
+      }
+      return (this.originalSubject !== this.form.subject || this.originalDealership !== this.form.dealership)
+    },
+    sendMsg () {
+      if (!this.isNRB) {
+        return 'Ok'
+      } else if (this.form.sent == 'Yes') {
+        return 'Send Again'
+      } else {
+        return 'Send'
+      }
     },
   },
   methods: {
@@ -153,8 +186,12 @@ export default {
       .then(() => {
         var index = this._.findIndex(this.contactList, { id: this.id })
         this.form = this.contactList[index]
+        this.originalSubject = this.form.subject
+        this.originalDealership = this.form.dealership
         this.api_count = 0
       })
+  },
+  mounted () {
   }
 }
 </script>
