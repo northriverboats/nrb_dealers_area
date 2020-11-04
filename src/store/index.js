@@ -510,7 +510,7 @@ export default new Vuex.Store({
       return axios
         .get('opr/' + id)
         .then((response) => {
-          commit('OPRS_READ', response.data[0])
+          commit('OPRS_READ', response.data)
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  READ: /api/opr/' + id) }
         })
