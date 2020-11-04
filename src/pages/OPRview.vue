@@ -36,11 +36,11 @@
           <b-table-column field="dealership" label="Dealership" :visible="isNRB" sortable>
             {{ titleCase(props.row.dealership) }}
           </b-table-column>
-          <b-table-column field="date_delivered" label="Purchased" sortable>
+          <b-table-column field="date_purchased" label="Purchased" sortable>
             {{
-              props.row.date_delivered.substring(5,7) + '/' +
-              props.row.date_delivered.substring(8,10) + '/' +
-              props.row.date_delivered.substring(0,4)
+              props.row.date_purchased.substring(5,7) + '/' +
+              props.row.date_purchased.substring(8,10) + '/' +
+              props.row.date_purchased.substring(0,4)
             }}
           </b-table-column>
           <b-table-column field="hull_serial_number" label="Serial Number" sortable>
@@ -119,9 +119,9 @@ export default {
       var itemText = (
         dealership + '~' +
         item.hull_serial_number + '~' +
-        item.date_delivered.substring(5, 7) + '/' +
-        item.date_delivered.substring(8, 10) + '/' +
-        item.date_delivered.substring(0, 4) + '~' +
+        item.date_purchased.substring(5, 7) + '/' +
+        item.date_purchased.substring(8, 10) + '/' +
+        item.date_purchased.substring(0, 4) + '~' +
         item.first_name + ' ' +
         item.last_name + '~' +
         item.street_city + '~' +
