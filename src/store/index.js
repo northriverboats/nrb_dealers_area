@@ -263,7 +263,10 @@ export default new Vuex.Store({
     },
     DRIHULLS_DELETE (state, id) {
       var index = Vue._.findIndex(state.driHulls, { id: id })
+      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
+      if (state.debug) { console.log(`    DRIHULLS_DELETE index: ${index}`) }
       state.driHulls.splice(index, 1)
+      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
     },
     DRI_CREATE (state, dri) {
       state.driList.push(dri)
@@ -440,7 +443,7 @@ export default new Vuex.Store({
       return axios
         .get('dri/' + id)
         .then((response) => {
-          commit('DRIS_READ', response.data[0])
+          commit('DRIS_READ', response.data)
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  READ: /api/dri/' + id) }
         })

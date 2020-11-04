@@ -83,6 +83,10 @@ div.formgroup hr {
   margin-bottom: 0rem;
 }
 .datepicker .datepicker-table .datepicker-body .datepicker-cell.is-selectable {
-  color: #FFFFFF;
+  color: #000000;
+}
+
+.select select option:disabled {
+  color: #b5b5b5;
 }
 </style>

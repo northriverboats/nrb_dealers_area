@@ -77,17 +77,39 @@
 
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Subject">
-          <b-select v-model="form.subject">
-            <option
-              v-for="reason in recReasonList"
-              :value="reason"
-              :key="reason"
-            >{{ reason }}
-            </option>
-          </b-select>
+          <div v-if="isNRB">
+            <b-select v-model="form.subject">
+              <option
+                v-for="reason in recReasonList"
+                :value="reason"
+                :key="reason"
+              >{{ reason }}
+              </option>
+            </b-select>
+          </div>
+          <div v-else>
+            <b-input v-model="form.subject" readonly></b-input>
+          </div>
         </b-field>
       </div>
-      <div class="column is-6-tablet is-9-desktop">
+      <div class="column is-6-tablet is-3-desktop">
+        <b-field label="Dealership">
+          <div v-if="isNRB">
+            <b-select v-model="form.nickname">
+              <option
+                v-for="dealer in dealerGroups"
+                :value="dealer"
+                :key="dealer"
+              >{{ dealer }}
+              </option>
+            </b-select>
+          </div>
+          <div v-else>
+            <b-input v-model="form.nickname" readonly></b-input>
+          </div>
+        </b-field>
+      </div>
+      <div class="column is-12-tablet is-6-desktop">
       </div>
 
       <div class="column is-12-tablet is-12-desktop">
@@ -95,6 +117,14 @@
           <b-input type="textarea" v-model="form.comments" readonly></b-input>
         </b-field>
       </div>
+
+      <div class="column is-12-tablet is-12-desktop">
+        <div class="buttons is-pulled-right">
+          <b-button  @click="myCancel">Cancel</b-button>
+          <b-button type="primary" @click="mySubmit" :disabled="!changed">{{ sendMsg }}</b-button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -108,7 +138,8 @@ export default {
   data () {
     return {
       originalSubject: '',
-      originalDealership: '',
+      originalNickname: '',
+      dealerGroups: [],
       api_count: 1,
       form: {
         id: 0,
@@ -127,6 +158,7 @@ export default {
         hull_serial_number: '',
         comments: '',
         dealership: '',
+        nickname: '',
         sent: '',
         contact: '',
       },
@@ -135,6 +167,7 @@ export default {
   computed: {
     ...mapGetters([
       'contactList',
+      'dealerships',
       'debug',
       'fileName',
       'isNRB',
@@ -154,7 +187,7 @@ export default {
       if (this.submitted) {
         return false
       }
-      return (this.originalSubject !== this.form.subject || this.originalDealership !== this.form.dealership)
+      return (this.originalSubject !== this.form.subject || this.originalNickname !== this.form.nickname)
     },
     sendMsg () {
       if (!this.isNRB) {
@@ -167,6 +200,32 @@ export default {
     },
   },
   methods: {
+    myCancel () {
+      window.history.back()
+    },
+    mySubmit () {
+      if (!this.isNRB) {
+        window.history.back()
+        return
+      }
+      this.submitted = true
+      this.$store.dispatch('contactUsUpdate', this.form)
+        .then(() => {
+          this.originalSubject = this.form.subject
+          this.originalNickname = this.form.nickname
+          this.submitted = false
+          /*
+          this.$snotify.success(
+            'Contact info sent to ' + this.form.nickname,
+            'Updated',
+            {
+              showProgressBar: false,
+              pauseOnHover: false
+            })
+            .on('destroyed', () => window.history.back())
+          */
+        })
+    },
     toPDF: function (id) {
       this.$store.dispatch('readContactUsPDF', id)
         .then(() => {
@@ -182,8 +241,12 @@ export default {
         var index = this._.findIndex(this.contactList, { id: this.id })
         this.form = this.contactList[index]
         this.originalSubject = this.form.subject
-        this.originalDealership = this.form.dealership
+        this.originalNickname = this.form.nickname
         this.api_count = 0
+      })
+    this.$store.dispatch('dealershipsRead')
+      .then(() => {
+        this.dealerGroups = this._.map(this._.filter(this.dealerships, function(o) { return o.contactus === '1' }), 'nickname')
       })
   },
   mounted () {

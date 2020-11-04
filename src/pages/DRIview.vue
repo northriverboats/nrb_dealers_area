@@ -61,7 +61,7 @@
             </a>
           </b-table-column>
           <b-table-column custom-key="edit">
-            <router-link :to="{path: `DRIform/${props.row.id}`}" >
+            <router-link :to="{path: `driform/${props.row.id}`}" >
               <b-icon icon="pencil" ></b-icon>
             </router-link>
           </b-table-column>

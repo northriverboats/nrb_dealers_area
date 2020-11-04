@@ -260,6 +260,7 @@ export default {
       id: '',
       closeTimeout: null,
       dealership: '',
+      date_delivered: null,
       date_received_start: null,
       date_received_end: null,
       file_1: null,
@@ -396,21 +397,11 @@ export default {
       }
       return ''
     },
-    setDateRanges (hull) {
-      // get build_year as "20" + model_year_decade and handle corner case for I920 = 2019 not 2029
-      // this.$moment() expects yyyy-m-d or yyyy-mm-dd for input
-      var buildYear = ''
-      if (hull.charAt(11) === '9' & hull.charAt(13) === '0') {
-        buildYear = '20' + (hull.charAt(12) - 1) + hull.charAt(11)
-      } else {
-        buildYear = '20' + hull.charAt(12) + hull.charAt(11)
-      }
-      var buildMonth = ('0' + (hull.charCodeAt(10) - 64)).slice(-2)
-      var buildDay = '01'
-      var buildDate = buildYear + '-' + buildMonth + '-' + buildDay
-
-      this.date_received_start = this.$moment(buildDate).subtract(12, 'months').toDate()
+    setDateRanges () {
+      this.date_received_start = this.$moment(this.date_delivered).toDate()
       this.date_received_end = this.$moment(new Date()).toDate()
+      if (this.debug) { console.log(`  date_received_start: ${this.date_received_start}`) }
+      if (this.debug) { console.log(`  date_received_end: ${this.date_received_end}`) }
     },
     changeReceivedDate () {
       if (this.other.date_received) {
@@ -471,6 +462,7 @@ export default {
         this.form.model = value.model
         this.form.date_received = ''
         this.other.date_received = null
+        this.date_delivered = value.date_delivered
       } else {
         if (this.isNRB) { this.form.dealership = '' }
         this.form.model = ''
@@ -478,7 +470,7 @@ export default {
         this.other.date_received = null
       }
       if (value !== null) {
-        this.setDateRanges(value.id)
+        this.setDateRanges()
       }
     },
     defectBlur () {
@@ -509,11 +501,17 @@ export default {
           this.other.date_received = this.$moment(this.form.date_received).format('MM/DD/YYYY')
         })
     }
+
+    this.date_received_start = this.$moment(new Date()).toDate()
+    this.date_received_end = this.$moment(new Date()).toDate()
+
     this.$store.dispatch('dealersRead')
     this.$store.dispatch('driHullsRead')
 
     this.$store.dispatch('userInfoRead')
       .then(() => {
+        console.log('trouble')
+        console.log(this.userInfo)
         if (this.isNRB) {
           this.dealership = 'All Dealerships'
         } else {
