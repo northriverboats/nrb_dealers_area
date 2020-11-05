@@ -9,7 +9,7 @@
       </div>
     </div>
     <!-- DRI -->
-    <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
+    <div class="column is-full-tablet is-half-desktop" style="margin-top: auto;">
         <h1 class="title">Dealer Inspection</h1>
         <hr class="has-background-white">
       <div class="columns">
@@ -22,7 +22,7 @@
       </div>
     </div>
     <!-- OPR -->
-    <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
+    <div class="column is-full-tablet is-half-desktop" style="margin-top: auto;">
         <h1 class="title">Original Purchaser Registration</h1>
         <hr class="has-background-white">
       <div class="columns">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <!-- MAINTEANCE  -->
-    <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
+    <div class="column is-full-tablet is-half-desktop" style="margin-top: auto;">
         <h1 class="title">Warranty</h1>
         <hr class="has-background-white">
       <div class="columns">
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="column is-full-tablet is-half-desktop" style="margin-bottom: 2rem">
+    <div class="column is-full-tablet is-half-desktop" style="margin-top: auto;">
         <h1 class="title">Contact Us</h1>
         <hr class="has-background-white">
       <div class="columns">
