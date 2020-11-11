@@ -812,9 +812,6 @@ export default {
   // ===========================================================================================================
   // METHODS SECTION
   methods: {
-    logMe (value) {
-      console.log(value)
-    },
     toPDF: function (id) {
       this.$store.dispatch('readOPRPDF', id)
         .then(() => {
@@ -858,7 +855,6 @@ export default {
       } else {
         this.form.date_delivered = ''
       }
-      console.log(this.form.date_delivered)
     },
     submitForm () {
       this.submit_locked = true
@@ -868,11 +864,32 @@ export default {
         return
       }
       this.submit_locked = false
+      
+      let formData = new FormData()
+      for (var key in this.form) {
+        formData.append(key, this.form[key])
+      }
+
+      this.$store.dispatch('oprCreate', this.form)
+        // eslint-disable-next-line
+        .then(response => {
+          // show notification that will last 2 seconds
+          const notif = this.$buefy.notification.open({
+            duration: 2000,
+            message: 'Form has been saved',
+            type: 'is-success'
+          })
+          // set timer to close window after 2 seconds
+          notif.$on('close', () => {
+            // this.$router.go(-1)
+            console.log()
+          })
+        })
     },
     formErrors () {
       this.$buefy.notification.open({
         duration: 2500,
-        message: `There are errors on this form`,
+        message: "There are errors on this form\nThey will be marked in red.",
         position: 'is-bottom',
         type: 'is-danger',
         hasIcon: true,

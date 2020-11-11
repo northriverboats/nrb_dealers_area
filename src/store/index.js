@@ -496,7 +496,8 @@ export default new Vuex.Store({
         .post('opr', form)
         .then((response) => {
           commit('OPR_CREATE', response.data)
-          commit('OPRHULLS_DELETE', form.get('hull_serial_number'))
+          // commit('OPRHULLS_DELETE', form.get('hull_serial_number'))
+          commit('OPRHULLS_DELETE', form['hull_serial_number'])
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  CREATE: /api/opr') }
         })

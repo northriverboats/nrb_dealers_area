@@ -428,7 +428,7 @@ export default {
         }
       }
 
-      this.$store.dispatch('drisCreate', formData)
+      this.$store.dispatch('driCreate', formData)
         // eslint-disable-next-line
         .then(response => {
           // show notification that will last 2 seconds
