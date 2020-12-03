@@ -881,8 +881,7 @@ export default {
           })
           // set timer to close window after 2 seconds
           notif.$on('close', () => {
-            // this.$router.go(-1)
-            console.log()
+            this.$router.go(-1)
           })
         })
     },
