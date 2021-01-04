@@ -67,7 +67,7 @@ body, html  {
 .logo {
   background-image: url("https://www.northriverboats.com/wp-content/uploads/2016/01/logo.png");
   width: 250px;
-  height: 85px;
+  height: 60px;
 }
 .pagination-link, .pagination-next, .pagination-previous {
   border-color: #FFFFFF;
