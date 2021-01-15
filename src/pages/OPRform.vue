@@ -1038,6 +1038,8 @@ export default {
           this.other.date_delivered = this.$moment(this.form.date_delivered).format('MM/DD/YYYY')
           this.other.date_deposit = this.$moment(this.form.date_deposit).format('MM/DD/YYYY')
         })
+    } else {
+			this.showCompany()
     }
     this.$store.dispatch('oprHullsRead')
     this.$store.dispatch('userInfoRead')
@@ -1051,7 +1053,6 @@ export default {
           this.form.dealership = this.userInfo
         }
       })
-			this.showCompany()
   }
 }
 </script>
