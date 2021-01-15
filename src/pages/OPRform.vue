@@ -10,10 +10,12 @@
         </h3>
         <hr class="has-background-white">
       </div>
-      <div class="column is-6-tablet is-7-desktop" v-if="isNRB">
-        <b-field label="Agency">
+      <div class="column is-6-tablet is-7-desktop">
+        <b-field label="Company/Agency">
           <b-input v-model="form.agency" :readonly="readOnly"></b-input>
         </b-field>
+      </div>
+      <div class="column is-6-tablet is-5-desktop" v-if="!isNRB">
       </div>
       <div class="column is-6-tablet is-5-desktop" v-if="isNRB">
         <b-field label="Contract">
@@ -463,6 +465,8 @@ import { mapGetters } from 'vuex'
 import { required, minLength, email, requiredIf, requiredUnless, or } from 'vuelidate/lib/validators'
 import Cleave from 'cleave.js'
 // require('cleave.js/dist/addons/cleave-phone.us.js')
+import  GetCompany from '../components/GetCompany'
+
 const cleave = {
   name: 'cleave',
   bind (el, binding) {
@@ -812,6 +816,24 @@ export default {
   // ===========================================================================================================
   // METHODS SECTION
   methods: {
+    showCompany: function () {
+      this.$buefy.modal.open({
+        parent: this,
+        component: GetCompany,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        events: {
+          'pushCompany': value => {
+            this.form.agency = value
+          },
+          'bye': value => {
+            this.$router.go(value)
+          }
+        },
+        canCancel: false,
+        trapFocus: true,
+      })
+    },
     toPDF: function (id) {
       this.$store.dispatch('readOPRPDF', id)
         .then(() => {
@@ -1029,6 +1051,7 @@ export default {
           this.form.dealership = this.userInfo
         }
       })
+			this.showCompany()
   }
 }
 </script>
