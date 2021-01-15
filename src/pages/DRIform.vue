@@ -4,7 +4,8 @@
       <div class="column is-full formgroup">
         <h3 class="title">
           Dealer Receipt Inspection for {{ dealership }}
-          <span class ="alignright" v-if="readOnly">
+          <span class ="buttons alignright" v-if="readOnly">
+            <b-button @click="toDelete(id)" type="is-info" v-if="isNRB"><b-icon icon="delete" ></b-icon></b-button>
             <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
           </span>
         </h3>
@@ -252,6 +253,7 @@
 import { mapGetters } from 'vuex'
 // import { required, minLength, email, requiredIf, requiredUnless, or } from 'vuelidate/lib/validators'
 import { required, email } from 'vuelidate/lib/validators'
+import  ConfirmDelete from '../components/ConfirmDelete'
 
 export default {
   name: 'DRIform',
@@ -377,6 +379,28 @@ export default {
     },
     logMe (value) {
       console.log(value)
+    },
+    toDelete: function (id) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ConfirmDelete,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        props: {
+          hull: 'DRI ' + this.form.hull_serial_number,
+          id: id,
+        },
+        events: {
+          'doDelete': value => {
+            console.log('deliting: ' + value) 
+          },
+          'bye': value => {
+            this.$router.go(value)
+          }
+        },
+        canCancel: false,
+        trapFocus: true,
+      })
     },
     toPDF: function (id) {
       this.$store.dispatch('readDRIPDF', id)
