@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "GetCompany",
   data() {
     return {
       company: "",
