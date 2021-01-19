@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+/* SHORTCUTS 's=store 'g=getters 'm=mutations 'a=actions */ 
+
 /* eslint no-undef: "error" */
 axios.defaults.headers.common['X-WP-Nonce'] = window.nonce
 axios.defaults.baseURL = 'https://www.northriverboats.com/wp-json/nrb_dealers_area/'
@@ -274,11 +276,25 @@ export default new Vuex.Store({
     DRI_READ (state, driList) {
       state.driList = driList
     },
+    DRI_DELETE (state, id) {
+      var index = Vue._.findIndex(state.driList, { id: id })
+      if (state.debug) { console.log(`    DRILIST_DELETE driList: ${state.driList.length}`) }
+      if (state.debug) { console.log(`    DRILIST_DELETE index: ${index}`) }
+      state.driList.splice(index, 1)
+      if (state.debug) { console.log(`    DRILIST_DELETE driList: ${state.driList.length}`) }
+    },
     DRIS_CREATE (state, dri) {
       state.dris.push(dri)
     },
     DRIS_READ (state, dri) {
       state.dris.push(dri)
+    },
+    DRIS_DELETE (state, id) {
+      var index = Vue._.findIndex(state.dris, { id: id })
+      if (state.debug) { console.log(`    DRIS_DELETE driHulls: ${state.dris.length}`) }
+      if (state.debug) { console.log(`    DRIS_DELETE index: ${index}`) }
+      state.dris.splice(index, 1)
+      if (state.debug) { console.log(`    DRIHULLS_DELETE dris: ${state.dris.length}`) }
     },
     OPR_CREATE (state, opr) {
       state.oprList.push(opr)
@@ -446,6 +462,19 @@ export default new Vuex.Store({
           commit('DRIS_READ', response.data)
           commit('DECLOAD', 1)
           if (state.debug) { console.log('  READ: /api/dri/' + id) }
+        })
+    },
+    drisDelete ({ commit, state }, id) {
+      // insert code to delete from server and images
+      // delete from dri and dri list
+      // force page reload
+      if (state.debug) { console.log('  DELETE: /api/dri' + id) }
+      commit('INCLOAD', 1)
+      return axios
+        .delete('dri/' + id)
+        .then((response) => {
+          console.log(commit, state, id, response)
+          commit('DECLOAD', 1)
         })
     },
     // DRILIST CRUD
