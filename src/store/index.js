@@ -424,8 +424,8 @@ export default new Vuex.Store({
         })
     },
     // DRIHULLS cRud
-    driHullsRead ({ commit, state }) {
-      if (state.driHulls.length > 0) {
+    driHullsRead ({ commit, state }, always) {
+      if (state.driHulls.length > 0 && !always) {
         if (state.debug) { console.log('  ALREADY READ: /api/drihulls') }
         return
       }
@@ -438,7 +438,7 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  READ: /api/drihulls') }
         })
     },
-    // DRIS CRUD
+    // DRIS Crud 
     drisCreate ({ commit, state }, form) {
       commit('INCLOAD', 1)
       return axios
@@ -450,6 +450,7 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  CREATE: /api/dri') }
         })
     },
+    // DRIS cRud
     drisRead ({ commit, state }, id) {
       if (typeof (state.dris.find(hull => hull.id === id)) !== 'undefined') {
         if (state.debug) { console.log('  ALREADY READ: /api/dri' + id) }
@@ -464,7 +465,8 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  READ: /api/dri/' + id) }
         })
     },
-    drisDelete ({ commit, state }, id) {
+    // DRIS cruD
+    drisDelete ({ dispatch, commit, state }, id) {
       // insert code to delete from server and images
       // delete from dri and dri list
       // force page reload
@@ -472,8 +474,10 @@ export default new Vuex.Store({
       commit('INCLOAD', 1)
       return axios
         .delete('dri/' + id)
-        .then((response) => {
-          console.log(commit, state, id, response)
+        .then(() => {
+          commit('DRI_DELETE', id)
+          commit('DRIS_DELETE', id)
+          dispatch('driHullsRead', true)
           commit('DECLOAD', 1)
         })
     },
