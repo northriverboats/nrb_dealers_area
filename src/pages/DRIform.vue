@@ -393,6 +393,10 @@ export default {
         events: {
           'doDelete': value => {
             console.log('deliting: ' + value) 
+            this.$store.dispatch('drisDelete', id)
+              .then(() => {
+                this.$router.go(-1)
+              })
           },
           'bye': value => {
             this.$router.go(value)
@@ -530,7 +534,7 @@ export default {
     this.date_received_end = this.$moment(new Date()).toDate()
 
     this.$store.dispatch('dealersRead')
-    this.$store.dispatch('driHullsRead')
+    this.$store.dispatch('driHullsRead', false)
 
     this.$store.dispatch('userInfoRead')
       .then(() => {
