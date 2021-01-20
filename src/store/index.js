@@ -532,6 +532,22 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  CREATE: /api/opr') }
         })
     },
+    // OPR cRud
+    oprRead ({ commit, state }) {
+      if (state.oprList.length > 0) {
+        if (state.debug) { console.log('  ALREADY READ: /api/opr') }
+        return
+      }
+      commit('INCLOAD', 1)
+      return axios
+        .get('opr')
+        .then((response) => {
+          commit('OPR_READ', response.data)
+          commit('DECLOAD', 1)
+          if (state.debug) { console.log('  READ: /api/opr') }
+        })
+    },
+    // OPRS cRud
     oprsRead ({ commit, state }, id) {
       if (typeof (state.oprs.find(hull => hull.id === id)) !== 'undefined') {
         if (state.debug) { console.log('  ALREADY READ: /api/opr' + id) }
@@ -546,18 +562,17 @@ export default new Vuex.Store({
           if (state.debug) { console.log('  READ: /api/opr/' + id) }
         })
     },
-    oprRead ({ commit, state }) {
-      if (state.oprList.length > 0) {
-        if (state.debug) { console.log('  ALREADY READ: /api/opr') }
-        return
-      }
+    // OPRS cruD
+    oprsDelete ({ dispatch, commit, state }, id) {
+      if (state.debug) { console.log('  DELETE: /api/opr' + id) }
       commit('INCLOAD', 1)
       return axios
-        .get('opr')
-        .then((response) => {
-          commit('OPR_READ', response.data)
+        .delete('opr/' + id)
+        .then(() => {
+          commit('OPR_DELETE', id)
+          commit('OPRS_DELETE', id)
+          dispatch('oprHullsRead', true)
           commit('DECLOAD', 1)
-          if (state.debug) { console.log('  READ: /api/opr') }
         })
     },
     // SERVICE RATES CRUD
