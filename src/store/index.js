@@ -302,18 +302,25 @@ export default new Vuex.Store({
     OPR_READ (state, oprList) {
       state.oprList = oprList
     },
+    OPRHULLS_READ (state, oprHulls) {
+      state.oprHulls = oprHulls
+    },
+    OPR_DELETE (state, id) {
+      var index = Vue._.findIndex(state.oprList, { id: id })
+      if (state.debug) { console.log(`    OPRLIST_DELETE oprList: ${state.oprList.length}`) }
+      if (state.debug) { console.log(`    OPRLIST_DELETE index: ${index}`) }
+      state.oprList.splice(index, 1)
+      if (state.debug) { console.log(`    OPRLIST_DELETE oprList: ${state.oprList.length}`) }
+    },
+    OPRHULLS_DELETE (state, id) {
+      var index = Vue._.findIndex(state.oprHulls, { id: id })
+      state.oprHulls.splice(index, 1)
+    },
     OPRS_CREATE (state, opr) {
       state.oprs.push(opr)
     },
     OPRS_READ (state, opr) {
       state.oprs.push(opr)
-    },
-    OPRHULLS_READ (state, oprHulls) {
-      state.oprHulls = oprHulls
-    },
-    OPRHULLS_DELETE (state, id) {
-      var index = Vue._.findIndex(state.oprHulls, { id: id })
-      state.oprHulls.splice(index, 1)
     },
     SERVICERATES_READ (state, rates) {
       state.serviceRates = rates
