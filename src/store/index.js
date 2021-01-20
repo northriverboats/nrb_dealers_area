@@ -322,6 +322,13 @@ export default new Vuex.Store({
     OPRS_READ (state, opr) {
       state.oprs.push(opr)
     },
+    OPRS_DELETE (state, id) {
+      var index = Vue._.findIndex(state.oprs, { id: id })
+      if (state.debug) { console.log(`    OPRS_DELETE oprHulls: ${state.oprs.length}`) }
+      if (state.debug) { console.log(`    OPRS_DELETE index: ${index}`) }
+      state.oprs.splice(index, 1)
+      if (state.debug) { console.log(`    OPRHULLS_DELETE oprs: ${state.oprs.length}`) }
+    },
     SERVICERATES_READ (state, rates) {
       state.serviceRates = rates
     },
