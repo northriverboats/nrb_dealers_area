@@ -5,8 +5,13 @@
         <h3 class="title">
           Original Purchaser Registration for {{ dealership }}
           <span class ="alignright" v-if="readOnly">
-            <b-button @click="toDelete(id)" type="is-info" v-if="isNRB"><b-icon icon="delete" ></b-icon></b-button>
-            <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
+            <b-tooltip label="Delete OPR" position="is-bottom">
+              <b-button @click="toDelete(id)" type="is-info" v-if="isNRB"><b-icon icon="delete" ></b-icon></b-button>
+            </b-tooltip>
+            &nbsp;
+            <b-tooltip label="Download PDF" position="is-bottom">
+              <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
+            </b-tooltip>
           </span>
         </h3>
         <hr class="has-background-white">
