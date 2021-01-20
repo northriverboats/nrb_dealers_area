@@ -467,9 +467,6 @@ export default new Vuex.Store({
     },
     // DRIS cruD
     drisDelete ({ dispatch, commit, state }, id) {
-      // insert code to delete from server and images
-      // delete from dri and dri list
-      // force page reload
       if (state.debug) { console.log('  DELETE: /api/dri' + id) }
       commit('INCLOAD', 1)
       return axios
