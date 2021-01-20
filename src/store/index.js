@@ -260,16 +260,6 @@ export default new Vuex.Store({
     DEALERSHIPS_READ (state, dealerships) {
       state.dealerships = dealerships
     },
-    DRIHULLS_READ (state, driHulls) {
-      state.driHulls = driHulls
-    },
-    DRIHULLS_DELETE (state, id) {
-      var index = Vue._.findIndex(state.driHulls, { id: id })
-      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
-      if (state.debug) { console.log(`    DRIHULLS_DELETE index: ${index}`) }
-      state.driHulls.splice(index, 1)
-      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
-    },
     DRI_CREATE (state, dri) {
       state.driList.push(dri)
     },
@@ -282,6 +272,16 @@ export default new Vuex.Store({
       if (state.debug) { console.log(`    DRILIST_DELETE index: ${index}`) }
       state.driList.splice(index, 1)
       if (state.debug) { console.log(`    DRILIST_DELETE driList: ${state.driList.length}`) }
+    },
+    DRIHULLS_READ (state, driHulls) {
+      state.driHulls = driHulls
+    },
+    DRIHULLS_DELETE (state, id) {
+      var index = Vue._.findIndex(state.driHulls, { id: id })
+      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
+      if (state.debug) { console.log(`    DRIHULLS_DELETE index: ${index}`) }
+      state.driHulls.splice(index, 1)
+      if (state.debug) { console.log(`    DRIHULLS_DELETE driHulls: ${state.driHulls.length}`) }
     },
     DRIS_CREATE (state, dri) {
       state.dris.push(dri)
