@@ -392,7 +392,7 @@ export default {
         },
         events: {
           'doDelete': value => {
-            console.log('deliting: ' + value) 
+            console.log('deliting: ' + value)
             this.$store.dispatch('drisDelete', id)
               .then(() => {
                 this.$router.go(-1)
