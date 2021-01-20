@@ -5,6 +5,7 @@
         <h3 class="title">
           Original Purchaser Registration for {{ dealership }}
           <span class ="alignright" v-if="readOnly">
+            <b-button @click="toDelete(id)" type="is-info" v-if="isNRB"><b-icon icon="delete" ></b-icon></b-button>
             <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
           </span>
         </h3>
@@ -466,6 +467,7 @@ import { required, minLength, email, requiredIf, requiredUnless, or } from 'vuel
 import Cleave from 'cleave.js'
 // require('cleave.js/dist/addons/cleave-phone.us.js')
 import  GetCompany from '../components/GetCompany'
+import  ConfirmDelete from '../components/ConfirmDelete'
 
 const cleave = {
   name: 'cleave',
@@ -825,6 +827,32 @@ export default {
         events: {
           'pushCompany': value => {
             this.form.agency = value
+          },
+          'bye': value => {
+            this.$router.go(value)
+          }
+        },
+        canCancel: false,
+        trapFocus: true,
+      })
+    },
+    toDelete: function (id) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ConfirmDelete,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        props: {
+          hull: 'OPR ' + this.form.hull_serial_number,
+          id: id,
+        },
+        events: {
+          'doDelete': value => {
+            console.log('deliting: ' + value)
+            this.$store.dispatch('oprsDelete', id)
+              .then(() => {
+                this.$router.go(-1)
+              })
           },
           'bye': value => {
             this.$router.go(value)
