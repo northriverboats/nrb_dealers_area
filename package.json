@@ -17,7 +17,7 @@
     "bulmaswatch": "^0.8.1",
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment-timezone": "^0.5.31",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
