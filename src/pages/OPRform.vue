@@ -223,6 +223,7 @@
             placeholder="e.g. NRB 21045 B818"
             :keep-first="true"
             :open-on-focus="true"
+            @blur="hullBlurEvent"
             @select="hullChanged"
             >
             <template slot="empty">No results found</template>
@@ -316,6 +317,9 @@
             :data="filteredTrailerListArray"
             placeholder="e.g. EZ Loader 3100"
             :keep-first="true"
+            :open-on-focus="true"
+            @blur="trailerBlurEvent"
+            @select="trailerChanged"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -350,6 +354,7 @@
             placeholder="e.g. Yamaha"
             :keep-first="true"
             :open-on-focus="true"
+            @blur="engine1MakeBlurEvent"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -386,6 +391,7 @@
             placeholder="e.g. Yamaha"
             :keep-first="true"
             :open-on-focus="true"
+            @blur="engine2MakeBlurEvent"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -422,6 +428,7 @@
             placeholder="e.g. Yamaha"
             :keep-first="true"
             :open-on-focus="true"
+            @blur="engine3MakeBlurEvent"
             >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -532,6 +539,7 @@ export default {
         // dealership
         salesperson: '',
         // purchased
+        date_deposit: '',
         date_delivered: '',
         dealership: '',
         hull_serial_number: '',
@@ -823,6 +831,31 @@ export default {
   // ===========================================================================================================
   // METHODS SECTION
   methods: {
+    trailerBlurEvent: function (e) {
+      if (this.lodash.findIndex(this.$store.state.trailerList, ['id', e.target.value]) === -1) {
+        this.form.trailer_model = ''
+      }
+    },
+    hullBlurEvent: function (e) {
+      if (this.lodash.findIndex(this.$store.state.oprHulls, ['id', e.target.value]) === -1) {
+        this.form.hull_serial_number = ''
+      }
+    },
+    engine1MakeBlurEvent: function (e) {
+      if (this.lodash.findIndex(this.$store.state.engineMakeList, ['id', e.target.value]) === -1) {
+        this.form.engine_1_make = ''
+      }
+    },
+    engine2MakeBlurEvent: function (e) {
+      if (this.lodash.findIndex(this.$store.state.engineMakeList, ['id', e.target.value]) === -1) {
+        this.form.engine_2_make = ''
+      }
+    },
+    engine3MakeBlurEvent: function (e) {
+      if (this.lodash.findIndex(this.$store.state.engineMakeList, ['id', e.target.value]) === -1) {
+        this.form.engine_3_make = ''
+      }
+    },
     showCompany: function () {
       this.$buefy.modal.open({
         parent: this,
@@ -958,11 +991,15 @@ export default {
       if (value !== null) {
         this.form.dealership = value.dealership
         this.form.model = value.model
+        this.form.date_deposit = ''
+        this.other.date_deposit = null
         this.form.date_delivered = ''
         this.other.date_delivered = null
       } else {
         if (this.isNRB) { this.form.dealership = '' }
         this.form.model = ''
+        this.form.date_deposit = ''
+        this.other.date_deposit = null
         this.form.date_delivered = ''
         this.other.date_delivered = null
       }
@@ -982,6 +1019,9 @@ export default {
         this.form.mailing_state = ''
         this.form.mailing_zip = ''
       }
+    },
+    trailerChanged (value) {
+      console.log(value)
     },
     // =========================================================================================================
     // Helper methods
