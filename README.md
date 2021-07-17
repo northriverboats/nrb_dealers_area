@@ -42,4 +42,9 @@ rsync -aAXhv --delete --chown=www-data:www-data \
       --exclude vue.config.js \
       /home/fwarren/docker/website/wp-www/plugins/nrb_dealers_area \
       nr:/srv/website/wp-www/html/wp-content/plugins
+
+rsync -aAXhv --delete --chown=www-data:www-data \
+      /home/fwarren/docker/website/wp-www/plugins/nrb_dealers_area/dist/ \
+      nr:/srv/website/wp-www/html/dealers-area/dist/
 ```
+
