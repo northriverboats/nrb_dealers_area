@@ -2045,14 +2045,6 @@ function logger_da($message, $level='error') {
     $loggerDA->log ($message, $level);
 }
 
-function dbgDA($message) {
-    global $debug;
-    global $loggerDA;
-
-    if ($debug) {
-        $loggerDA->log ($message);
-    }
-}
 
 /*
 Form mailing
