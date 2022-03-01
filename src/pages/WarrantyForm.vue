@@ -1,6 +1,22 @@
 <template>
   <div>
-    Something Goes Here {{ id }}
+    <div class="columns is-multiline">
+      <div class="column is-full formgroup">
+        <h3 class="title">
+          Dealership Warranty Form
+          <span class ="alignright" v-if="readOnly">
+            <b-tooltip label="Delete OPR" position="is-bottom">
+              <b-button @click="toDelete(id)" type="is-info" v-if="isNRB"><b-icon icon="delete" ></b-icon></b-button>
+            </b-tooltip>
+            &nbsp;
+            <b-tooltip label="Download PDF" position="is-bottom">
+              <b-button @click="toPDF(id)" type="is-info"><b-icon icon="file-pdf-box" ></b-icon></b-button>
+            </b-tooltip>
+          </span>
+        </h3>
+        <hr class="has-background-white">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,7 +27,9 @@ export default {
   name: 'Warrantyform',
   data () {
     return {
-      id: ''
+      id: '',
+      dealership: '',
+      readOnly: false, 
     }
   },
   computed: {
