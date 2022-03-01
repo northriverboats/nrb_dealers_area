@@ -117,7 +117,17 @@
           :message="{'State is required': $v.form.street_state.$error}"
           v-bind:class="{ 'is-danger': $v.form.street_state.$error }"
         >
-        <b-input v-model="form.street_state" @blur="blurZip" :readonly="true"></b-input>
+          <b-autocomplete
+            v-model="form.street_state"
+            :data="filteredStreetStateArray"
+            :readonly="readOnly"
+            placeholder="e.g. Oregon"
+            :keep-first="true"
+            :open-on-focus="true"
+            @input="blurState"
+            >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
         </b-field>
       </div>
       <div class="column is-2-tablet is-3-desktop">
@@ -188,7 +198,7 @@
           }"
           v-bind:class="{ 'is-danger': $v.form.mailing_zip.$error }"
         >
-          <b-input v-model="form.mailing_zip" :readonly="readOnly"></b-input>
+          <b-input v-model="form.mailing_zip" @blur="blurZip" :readonly="readOnly"></b-input>
         </b-field>
       </div>
     </div>
@@ -942,6 +952,16 @@ export default {
         return
       }
       this.submit_locked = false
+
+      // fixup state
+      const state1 = this.getState(this.form.street_zip.substring(0,5))
+      const state2 = this.getState(this.form.mailing_zip.substring(0,5))
+      if (state2) {
+        this.form.mailing_state = state2
+      }
+      if (state1) {
+        this.form.street_state = state1
+      }
       
       let formData = new FormData()
       for (var key in this.form) {
@@ -1034,8 +1054,14 @@ export default {
       }
     },
     blurZip: function () {
-      const state = this.getState(this.form.street_zip.substring(0,5)) || ''
-      this.form.street_state = state
+      const state1 = this.getState(this.form.street_zip.substring(0,5))
+      const state2 = this.getState(this.form.mailing_zip.substring(0,5))
+      if (state1) {
+        this.form.street_state = state1
+      }
+      if (state2 && !this.same) {
+        this.form.mailing_state = state2
+      }
       if (this.same) {
         this.form.mailing_zip = this.form.street_zip
       }
