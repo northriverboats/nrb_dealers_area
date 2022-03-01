@@ -117,17 +117,7 @@
           :message="{'State is required': $v.form.street_state.$error}"
           v-bind:class="{ 'is-danger': $v.form.street_state.$error }"
         >
-          <b-autocomplete
-            v-model="form.street_state"
-            :data="filteredStreetStateArray"
-            :readonly="readOnly"
-            placeholder="e.g. Oregon"
-            :keep-first="true"
-            :open-on-focus="true"
-            @input="blurState"
-            >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
+        <b-input v-model="form.street_state" @blur="blurZip" :readonly="true"></b-input>
         </b-field>
       </div>
       <div class="column is-2-tablet is-3-desktop">
@@ -1044,6 +1034,8 @@ export default {
       }
     },
     blurZip: function () {
+      const state = this.getState(this.form.street_zip.substring(0,5)) || ''
+      this.form.street_state = state
       if (this.same) {
         this.form.mailing_zip = this.form.street_zip
       }
