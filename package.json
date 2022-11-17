@@ -18,7 +18,7 @@
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.5",
     "lodash": "^4.17.15",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
