@@ -14,14 +14,14 @@ use NRB\NRB_CS\Monolog\Handler\ChromePHPHandler;
 use NRB\NRB_CS\Mpdf\Mpdf;
 use NRB\NRB_CS\PHPMailer\PHPMailer\PHPMailer;
 
-$cslog = new Logger('cs');
+$dalog = new Logger('cs');
 $log_file = dirname(__FILE__).'/log/log.txt';
 if (NRB_DEBUG) {
-    $cslog->pushHandler(new StreamHandler($log_file, Logger::INFO));
-    $cslog->pushHandler(new ChromePHPHandler(Logger::DEBUG));
+    $dalog->pushHandler(new StreamHandler($log_file, Logger::INFO));
+    $dalog->pushHandler(new ChromePHPHandler(Logger::DEBUG));
 } else {
-    $cslog->pushHandler(new StreamHandler($log_file, Logger::WARNING));
-    $cslog->pushHandler(new ChromePHPHandler(Logger::WARNING));
+    $dalog->pushHandler(new StreamHandler($log_file, Logger::WARNING));
+    $dalog->pushHandler(new ChromePHPHandler(Logger::WARNING));
 }
 
 /*
@@ -847,6 +847,7 @@ function nrb_dealers_area_serve_route_dri( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     global $wpdb;
+    global $dalog;
 
     $row = $request->get_params();
 
@@ -913,13 +914,11 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     $mail->AddStringAttachment($attachment, "DRI - {$row['hull_serial_number']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        // Analog::log ("DRI Mailer Error: " . $mail->ErrorInfo);
-        // Analog::log (print_r($row, true));
+        $dalog->error("DRI Mailer Error");
+        $dalog->error(print_r($mail->ErrorInfo, TRUE));
+        $dalog->error(print_r($row, TRUE));
     }
 
-    if (NRB_DEBUG) {
-      // Analog::debug('Useful diagnostic message');
-    }
     // fix up result
     $row['id'] = $row['uid'];
     unset($row['uid']);
@@ -1086,6 +1085,7 @@ function nrb_dealers_area_serve_route_opr( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     global $wpdb;
+    global $dalog;
 
     $row = $request->get_params();
 
@@ -1180,9 +1180,10 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
         $mail->Body = $html2;
         $mail->AltBody = $text;
 
-        if(!$mail->send()) {
-            // Analog::log ("OPR Mailer to Customer Error: " . $mail->ErrorInfo);
-            // Analog::log (print_r($row, true));
+	if(!$mail->send()) {
+            $dalog->error("OPR Mailer to Customer Error:");
+            $dalog->error(print_r($mail->ErrorInfo, TRUE));
+            $dalog->error(print_r($row, TRUE));
         }
     }
 
@@ -1211,8 +1212,9 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     $mail->AddStringAttachment($attachment, "Survey - {$row['hull_serial_number']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        // Analog::log ("OPR Mailer to Factory Error: " . $mail->ErrorInfo);
-        // Analog::log (print_r($row, true));
+        $dalog->error("OPR Mailer to Factory Error:");
+        $dalog->error(print_r($mail->ErrorInfo, TRUE));
+        $dalog->error(print_r($row, TRUE));
     }
 
     return $row;
@@ -1395,6 +1397,7 @@ function nrb_dealers_area_serve_route_contact_us_id( WP_REST_Request $request ) 
  */
 function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $request ) {
     global $wpdb;
+    global $dalog;
 
     $id   = $request['id'];
     $row = $request->get_params();
@@ -1405,18 +1408,12 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     var_dump($row['nickname']);
     $rez = ob_get_contents();
     ob_end_clean();
-    // Analog::log($rez);
 
     // create HTML form response
     ob_start();
     require('templates/contact_us_rec.php');
     $html = ob_get_contents();
     ob_end_clean();
-
-    // Create Dealer PDF
-    // $mpdf = new Mpdf();
-    // $mpdf->WriteHTML(utf8_encode($html));
-    // $attachment = $mpdf->Output('', 'S');
 
     // PHPMailer Object To Factory
     $mail = new PHPMailer;
@@ -1435,14 +1432,14 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     $mail->isHTML(true);
     $mail->Subject = 'NRB Customer Contact - ' . $row['name'];
     $mail->Body = $html;
-    // $mail->AddStringAttachment($attachment, "ContactUs - {$row['id']}.pdf", 'base64', 'application/pdf');
+    $mail->AddStringAttachment($attachment, "ContactUs - {$row['id']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        // Analog::log ("NRB Customre Contact Resent to Dealer Error: " . $mail->ErrorInfo);
-        // Analog::log (print_r($row, true));
+        $dalog->error("NRB Customer Contact Resent to Dealer Error:");
+        $dalog->error(print_r($mail->ErrorInfo, TRUE));
+        $dalog->error(print_r($row, TRUE));
     }
 
-    // return "You are in transition with " . array('One','Two','Three','Four','Five','Six')[rand(0,5)];
     return $row;
 }
 
