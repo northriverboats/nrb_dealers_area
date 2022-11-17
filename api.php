@@ -848,7 +848,6 @@ function nrb_dealers_area_serve_route_dri( WP_REST_Request $request ) {
 function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     global $wpdb;
 
-    // FWW change row to $result
     $row = $request->get_params();
 
     $row['uid'] = base62encode(random_bytes(9));
@@ -977,7 +976,6 @@ function nrb_dealers_area_serve_route_dri_pdf( WP_REST_Request $request ) {
 function nrb_dealers_area_serve_route_dri_delete( WP_REST_Request $request ) {
     global $wpdb;
 
-    // FWW change row to $result
     $row = $request->get_params();
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
@@ -1089,7 +1087,6 @@ function nrb_dealers_area_serve_route_opr( WP_REST_Request $request ) {
 function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     global $wpdb;
 
-    // FWW convert $row to $result
     $row = $request->get_params();
 
     $row['uid'] = base62encode(random_bytes(9));
@@ -1271,7 +1268,6 @@ function nrb_dealers_area_serve_route_opr_pdf( WP_REST_Request $request ) {
 function nrb_dealers_area_serve_route_opr_delete( WP_REST_Request $request ) {
     global $wpdb;
 
-    // FWW change row to $result
     $row = $request->get_params();
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
@@ -1400,7 +1396,6 @@ function nrb_dealers_area_serve_route_contact_us_id( WP_REST_Request $request ) 
 function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $request ) {
     global $wpdb;
 
-    // FWW convert $row to $result
     $id   = $request['id'];
     $row = $request->get_params();
     $wpdb->update('wp_nrb_contact_us', $row, array('id'=>$id));
