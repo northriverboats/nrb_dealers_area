@@ -624,11 +624,11 @@ export default {
           if (!this.form.street_state) {
             return false
           }
-          let abvr = this.form.street_state.toString().toLowerCase().split(' ').join('').substr(0, 4)
-          if (abvr === 'nota') {
+          let abvr = this.form.street_state.toString().toLowerCase().split(' ').join('').substr(0, 6)
+          if (abvr === 'notapl') {
             return true
           }
-          if (abvr.match('albe|brit|mani|newb|newf|nova|nuna|nort|onta|prin|queb|sask|yuko')) {
+          if (abvr.match('albert|britis|manito|newbru|newfou|novasc|nunavu|northw|ontari|prince|quebec|saskat|yukon')) {
             let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
             return ca.test(value)
           }
@@ -672,7 +672,7 @@ export default {
           if (abvr === 'nota') {
             return true
           }
-          if (abvr.match('albe|brit|mani|newb|newf|nova|nuna|nort|onta|prin|queb|sask|yuko')) {
+          if (abvr.match('albert|britis|manito|newbru|newfou|novasc|nunavu|northw|ontari|prince|quebec|saskat|yukon')) {
             let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
             return ca.test(value)
           }
