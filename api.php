@@ -6,8 +6,23 @@ require __DIR__ . '/nrb/autoload.php';
 
 define('NRB_DEBUG',  filter_var(array_change_key_case(getallheaders(), CASE_LOWER)['x-debug'], FILTER_VALIDATE_BOOLEAN));
 
-
 add_action( 'rest_api_init', 'nrb_dealers_area_register_routes' );
+
+use NRB\NRB_CS\Monolog\Logger;
+use NRB\NRB_CS\Monolog\Handler\StreamHandler;
+use NRB\NRB_CS\Monolog\Handler\ChromePHPHandler;
+use NRB\NRB_CS\Mpdf\Mpdf;
+use NRB\NRB_CS\PHPMailer\PHPMailer\PHPMailer;
+
+$cslog = new Logger('cs');
+$log_file = dirname(__FILE__).'/log/log.txt';
+if (NRB_DEBUG) {
+    $cslog->pushHandler(new StreamHandler($log_file, Logger::INFO));
+    $cslog->pushHandler(new ChromePHPHandler(Logger::DEBUG));
+} else {
+    $cslog->pushHandler(new StreamHandler($log_file, Logger::WARNING));
+    $cslog->pushHandler(new ChromePHPHandler(Logger::WARNING));
+}
 
 /*
  * WP_REST_Server::READABLE   = ‘GET’
@@ -877,7 +892,7 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     ob_end_clean();
 
     // Create PDF
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
     $attachment = $mpdf->Output('', 'S');
 
@@ -945,7 +960,7 @@ function nrb_dealers_area_serve_route_dri_pdf( WP_REST_Request $request ) {
     ob_end_clean();
 
     // Create Dealer PDF
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
     $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
 
@@ -1128,7 +1143,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     ob_end_clean();
 
     // Create Factory PDF
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
     $attachment = $mpdf->Output('', 'S');
 
@@ -1138,7 +1153,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     $html1 = ob_get_contents();
     ob_end_clean();
 
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html1));
     $letter = $mpdf->Output('', 'S');
 
@@ -1242,7 +1257,7 @@ function nrb_dealers_area_serve_route_opr_pdf( WP_REST_Request $request ) {
     ob_end_clean();
 
     // Create Dealer PDF
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
     $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
 
@@ -1320,7 +1335,7 @@ function nrb_dealers_area_serve_route_contact_us_pdf( WP_REST_Request $request )
     ob_end_clean();
 
     // Create Dealer PDF
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
     $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
 
@@ -1409,7 +1424,7 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     ob_end_clean();
 
     // Create Dealer PDF
-    // $mpdf = new \Mpdf\Mpdf();
+    // $mpdf = new Mpdf();
     // $mpdf->WriteHTML(utf8_encode($html));
     // $attachment = $mpdf->Output('', 'S');
 
