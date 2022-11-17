@@ -4,18 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Analog\Logger;
 
-$loggerDA = new Analog;
 $debug = array_change_key_case(getallheaders(), CASE_LOWER)['x-debug'] == 'true';
-$debug_console = True;
-
-if ($debug & $debug_console) {
-  $loggerDA->handler (Analog\Handler\ChromeLogger::init ());
-} else {
-  $log_file = dirname(__FILE__).'/tmp/log.txt';
-  $loggerDA->Handler (Analog\Handler\File::init ($log_file));
-}
 
 add_action( 'rest_api_init', 'nrb_dealers_area_register_routes' );
 
@@ -909,12 +899,12 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     $mail->AddStringAttachment($attachment, "DRI - {$row['hull_serial_number']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        Analog::log ("DRI Mailer Error: " . $mail->ErrorInfo);
-        Analog::log (print_r($row, true));
+        // Analog::log ("DRI Mailer Error: " . $mail->ErrorInfo);
+        // Analog::log (print_r($row, true));
     }
 
     if ($debug) {
-      Analog::debug('Useful diagnostic message');
+      // Analog::debug('Useful diagnostic message');
     }
     // fix up result
     $row['id'] = $row['uid'];
@@ -1182,8 +1172,8 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
         $mail->AltBody = $text;
 
         if(!$mail->send()) {
-            Analog::log ("OPR Mailer to Customer Error: " . $mail->ErrorInfo);
-            Analog::log (print_r($row, true));
+            // Analog::log ("OPR Mailer to Customer Error: " . $mail->ErrorInfo);
+            // Analog::log (print_r($row, true));
         }
     }
 
@@ -1212,8 +1202,8 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     $mail->AddStringAttachment($attachment, "Survey - {$row['hull_serial_number']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        Analog::log ("OPR Mailer to Factory Error: " . $mail->ErrorInfo);
-        Analog::log (print_r($row, true));
+        // Analog::log ("OPR Mailer to Factory Error: " . $mail->ErrorInfo);
+        // Analog::log (print_r($row, true));
     }
 
     return $row;
@@ -1410,7 +1400,7 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     var_dump($row['nickname']);
     $rez = ob_get_contents();
     ob_end_clean();
-    Analog::log($rez);
+    // Analog::log($rez);
 
     // create HTML form response
     ob_start();
@@ -1443,8 +1433,8 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     // $mail->AddStringAttachment($attachment, "ContactUs - {$row['id']}.pdf", 'base64', 'application/pdf');
 
     if(!$mail->send()) {
-        Analog::log ("NRB Customre Contact Resent to Dealer Error: " . $mail->ErrorInfo);
-        Analog::log (print_r($row, true));
+        // Analog::log ("NRB Customre Contact Resent to Dealer Error: " . $mail->ErrorInfo);
+        // Analog::log (print_r($row, true));
     }
 
     // return "You are in transition with " . array('One','Two','Three','Four','Five','Six')[rand(0,5)];
@@ -2026,23 +2016,6 @@ function dealerToEmail($nickname, $role) {
       return $result;
     }
     return 'fredw@northriverboats.com';
-}
-
-function logger_da($message, $level='error') {
-    global $loggerDA;
-    if ($level = 'error') {
-    $level = Analog::ERROR;
-    } elseif ($level = 'warning') {
-        $level = Analog::WARNING;
-    } elseif ($level = 'debug') {
-        $level = Analog::DEBUG;
-    } elseif ($level = 'urgent') {
-        $level = Analog::URGENT;
-    } elseif ($level = 'info') {
-        $level = Analog::INFO;
-    }
-
-    $loggerDA->log ($message, $level);
 }
 
 
