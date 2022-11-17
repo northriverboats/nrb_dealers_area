@@ -375,6 +375,7 @@ function nrb_dealers_area_register_routes() {
  */
 function nrb_dealers_area_serve_route_foo( WP_REST_Request $request ) {
     global $wpdb;
+
     // Do something with the $request
 
     // Return either a WP_REST_Response or WP_Error object
@@ -397,6 +398,7 @@ function nrb_dealers_area_serve_route_foo( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_bar( WP_REST_Request $request ) {
     global $wpdb;
+
     // Do something with the $request
 
     // Return either a WP_REST_Response or WP_Error object
@@ -787,7 +789,6 @@ function nrb_dealers_area_serve_route_userinfo( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_dris( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -846,7 +847,6 @@ function nrb_dealers_area_serve_route_dri( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     // FWW change row to $result
     $row = $request->get_params();
@@ -901,7 +901,7 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
-    if ($debug) {
+    if (NRB_DEBUG) {
         $mail->addAddress("fredw@northriverboats.com", "Fred Warren");
     } else {
         $mail->addAddress("jamesg@northriverboats.com", "James Green");
@@ -918,7 +918,7 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
         // Analog::log (print_r($row, true));
     }
 
-    if ($debug) {
+    if (NRB_DEBUG) {
       // Analog::debug('Useful diagnostic message');
     }
     // fix up result
@@ -937,7 +937,7 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_dri_pdf( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
+
     $folder = "/var/www/html/pdfs/";
     $url = "/pdfs/";
 
@@ -976,7 +976,6 @@ function nrb_dealers_area_serve_route_dri_pdf( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_dri_delete( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     // FWW change row to $result
     $row = $request->get_params();
@@ -1022,7 +1021,6 @@ function nrb_dealers_area_serve_route_dri_delete( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_oprs( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1065,7 +1063,7 @@ function nrb_dealers_area_serve_route_oprs( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_opr( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
+
     $folder = "/var/www/html/pdfs/";
     $url = "/pdfs/";
 
@@ -1090,7 +1088,6 @@ function nrb_dealers_area_serve_route_opr( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     // FWW convert $row to $result
     $row = $request->get_params();
@@ -1175,7 +1172,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
         $mail->From = "webmaster@northriverboats.com";
         $mail->FromName = "North River Website";
         $mail->addReplyTo("saral@northriverboats.com", "Sara Lynn");
-        if ($debug) {
+        if (NRB_DEBUG) {
             $mail->addAddress("fredw@northriverboats.com", "Fred Warren");
         } else {
             $mail->addAddress($row['email'], $row['first_name'] . " " . $row['last_name']);
@@ -1197,7 +1194,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
-    if ($debug) {
+    if (NRB_DEBUG) {
         $mail->addAddress("fredw@northriverboats.com", "Fredrick W. Warren");
     } else {
         $mail->addAddress("saral@northriverboats.com", "Sara Lynn");
@@ -1234,7 +1231,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_opr_pdf( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
+
     $folder = "/var/www/html/pdfs/";
     $url = "/pdfs/";
 
@@ -1273,7 +1270,6 @@ function nrb_dealers_area_serve_route_opr_pdf( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_opr_delete( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     // FWW change row to $result
     $row = $request->get_params();
@@ -1312,7 +1308,7 @@ function nrb_dealers_area_serve_route_opr_delete( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_contact_us_pdf( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
+
     $folder = "/var/www/html/pdfs/";
     $url = "/pdfs/";
 
@@ -1403,7 +1399,6 @@ function nrb_dealers_area_serve_route_contact_us_id( WP_REST_Request $request ) 
  */
 function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     // FWW convert $row to $result
     $id   = $request['id'];
@@ -1433,7 +1428,7 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
-    if ($debug) {
+    if (NRB_DEBUG) {
         $mail->addAddress("fredw@northriverboats.com", "Fredrick W. Warren");
         $html .= '<p>' . dealerToEmail($row['nickname'],$row['subject']) .' </p>';
     } else {
@@ -1473,7 +1468,6 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
  */
 function nrb_dealers_area_serve_route_warranty_form_update( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1497,7 +1491,6 @@ function nrb_dealers_area_serve_route_warranty_form_update( WP_REST_Request $req
  */
 function nrb_dealers_area_serve_route_warranty_form_create( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     $params = $request->get_params();
     $params['uid'] = base62encode(random_bytes(9));
@@ -1529,7 +1522,6 @@ function nrb_dealers_area_serve_route_warranty_form_create( WP_REST_Request $req
  */
 function nrb_dealers_area_serve_route_warranty( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1560,7 +1552,6 @@ function nrb_dealers_area_serve_route_warranty( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_warranty_id( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1594,7 +1585,6 @@ function nrb_dealers_area_serve_route_warranty_id( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_warranty_uid( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1631,7 +1621,6 @@ function nrb_dealers_area_serve_route_warranty_uid( WP_REST_Request $request ) {
  */
 function nrb_dealers_area_serve_route_warranty_update( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1653,7 +1642,6 @@ function nrb_dealers_area_serve_route_warranty_update( WP_REST_Request $request 
  */
 function nrb_dealers_area_serve_route_warranty_create( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     $params = $request->get_params();
     $params['uid'] = base62encode(random_bytes(9));
@@ -1673,7 +1661,6 @@ function nrb_dealers_area_serve_route_warranty_create( WP_REST_Request $request 
  */
 function nrb_dealers_area_serve_route_warranty_reasons( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1695,7 +1682,6 @@ function nrb_dealers_area_serve_route_warranty_reasons( WP_REST_Request $request
  */
 function nrb_dealers_area_serve_route_warranty_parts_id( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1729,7 +1715,6 @@ function nrb_dealers_area_serve_route_warranty_parts_id( WP_REST_Request $reques
  */
 function nrb_dealers_area_serve_route_warranty_labor_id( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1763,7 +1748,6 @@ function nrb_dealers_area_serve_route_warranty_labor_id( WP_REST_Request $reques
  */
 function nrb_dealers_area_serve_route_warranty_notes_id( WP_REST_Request $request ) {
     global $wpdb;
-    global $debug;
 
     if (! is_user_logged_in()) return new WP_REST_Response(null, 403);
 
@@ -1800,7 +1784,6 @@ function user_to_dealer_id($userid) {
      * wp_info.current_user_id is converted to the dealer_id
      */
     global $wpdb;
-    global $debug;
 
     $sql  = "SELECT IF(d.id > 0, d.id, 0 ) AS dealer_id FROM wp_users u ";
     $sql .= "LEFT JOIN wp_nrb_dealers d ON u.user_login = d.login ";
@@ -1812,7 +1795,6 @@ function user_to_dealer_id($userid) {
 
 function user_to_dealer_email($userid, $role) {
     global $wpdb;
-    global $debug;
 
     if (!in_array($role,array('store', 'manager', 'admin', 'sales', 'parts', 'service', 'warranty'))) {
         $role = "store";
@@ -1836,7 +1818,6 @@ function user_to_dealer_name($userid) {
      * wp_info.current_user_id is converted to the dealer_id
      */
     global $wpdb;
-    global $debug;
 
     $sql  = "SELECT IF(d.id > 0, d.dealer, 'North River Boats' ) AS dealer_name FROM wp_users u ";
     $sql .= "LEFT JOIN wp_nrb_dealers d ON u.user_login = d.login ";
@@ -1851,7 +1832,6 @@ function user_to_dealer_group_name($userid) {
      * wp_info.current_user_id is converted to the dealer_id up to (
      */
     global $wpdb;
-    global $debug;
 
     $sql  = "SELECT IF(d.id > 0, d.dealer_group, 'North River Boats' ) AS dealer_name FROM wp_users u ";
     $sql .= "LEFT JOIN wp_nrb_dealers d ON u.user_login = d.login ";
@@ -1986,6 +1966,7 @@ function state_abbr($name, $get = 'abbr') {
  */
 function dealerToEmail($nickname, $role) {
     global $wpdb;
+
     $sql = (
       "SELECT
            nickname,
