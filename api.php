@@ -2,10 +2,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) wp_die( 'restricted access' );
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/nrb/autoload.php';
 
+define('NRB_DEBUG',  filter_var(array_change_key_case(getallheaders(), CASE_LOWER)['x-debug'], FILTER_VALIDATE_BOOLEAN));
 
-$debug = array_change_key_case(getallheaders(), CASE_LOWER)['x-debug'] == 'true';
 
 add_action( 'rest_api_init', 'nrb_dealers_area_register_routes' );
 
