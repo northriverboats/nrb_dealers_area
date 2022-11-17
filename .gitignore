@@ -2,6 +2,7 @@
 node_modules/
 /dist/
 certs/
+log/
 nrb/
 npm-debug.log*
 yarn-debug.log*
