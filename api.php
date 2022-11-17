@@ -897,7 +897,7 @@ function nrb_dealers_area_serve_route_dri_create( WP_REST_Request $request ) {
     $attachment = $mpdf->Output('', 'S');
 
     // PHPMailer Object
-    $mail = new PHPMailer\PHPMailer\PHPMailer;
+    $mail = new PHPMailer;
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
@@ -1171,7 +1171,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
 
     // PHPMailer Object To Customer
     if (strlen($row['email']) > 2) {
-        $mail = new PHPMailer\PHPMailer\PHPMailer;
+        $mail = new PHPMailer;
         $mail->From = "webmaster@northriverboats.com";
         $mail->FromName = "North River Website";
         $mail->addReplyTo("saral@northriverboats.com", "Sara Lynn");
@@ -1193,7 +1193,7 @@ function nrb_dealers_area_serve_route_opr_create( WP_REST_Request $request ) {
     }
 
     // PHPMailer Object To Factory
-    $mail = new PHPMailer\PHPMailer\PHPMailer;
+    $mail = new PHPMailer;
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
@@ -1429,7 +1429,7 @@ function nrb_dealers_area_serve_route_contact_us_update( WP_REST_Request $reques
     // $attachment = $mpdf->Output('', 'S');
 
     // PHPMailer Object To Factory
-    $mail = new PHPMailer\PHPMailer\PHPMailer;
+    $mail = new PHPMailer;
     $mail->From = "webmaster@northriverboats.com";
     $mail->FromName = "North River Website";
     $mail->addReplyTo("fredw@northriverboats.com", "Fredrick W. Warren");
