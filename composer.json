@@ -1,8 +1,53 @@
 {
+    "require-dev": {
+        "brianhenryie/strauss": "^0.11.1"
+    },
+    "scripts": {
+        "strauss": [
+            "vendor/bin/strauss"
+        ],
+        "post-install-cmd": [
+            "@strauss"
+        ],
+        "post-update-cmd": [
+            "@strauss"
+        ]
+    },
+   "extra": {
+        "strauss": {
+            "target_directory": "nrb",
+            "namespace_prefix": "NRB\\NRB_DA\\",
+            "classmap_prefix": "NRB_NRB_DA_",
+            "constant_prefix": "NRBDA_",
+            "packages": [
+            ],
+            "override_autoload": {
+            },
+            "exclude_from_copy": {
+                "packages": [
+                ],
+                "namespaces": [
+                ],
+                "file_patterns": [
+                ]
+            },
+            "exclude_from_prefix": {
+                "packages": [
+                    ],
+                "namespaces": [
+                ],
+                "file_patterns": [
+                    "/^psr.*$/"
+                ]
+            },
+            "namespace_replacement_patterns" : {
+            },
+            "delete_vendor_files": false
+        }
+    },
     "require": {
-        "phpmailer/phpmailer": "^6.0",
-        "mpdf/mpdf": "^7.1",
-        "leeoniya/dump-r": "^2.1",
-        "analog/analog": "^1.0"
+        "mpdf/mpdf": "^8.1",
+        "phpmailer/phpmailer": "^6.6",
+        "monolog/monolog": "^2.8"
     }
 }
