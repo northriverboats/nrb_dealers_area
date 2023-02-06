@@ -514,8 +514,10 @@ export default {
       date_deposit_end: null,
       hull_serial_number: '',
       isFormValid: false,
+      mailing_postal: false,
       same: true,
       submit_locked: false,
+      street_postal: false,
       form: {
         // owner
         agency: '',
@@ -622,17 +624,22 @@ export default {
         },
         zip (value) {
           if (!this.form.street_state) {
+            this.street_postal = false
             return false
           }
-          let abvr = this.form.street_state.toString().toLowerCase().split(' ').join('').substr(0, 6)
-          if (abvr === 'notapl') {
+          if (this.form.street_state === 'Not Applicable') {
+            this.street_postal = true
             return true
           }
-          if (abvr.match('albert|britis|manito|newbru|newfou|novasc|nunavu|northw|ontari|prince|quebec|saskat|yukon')) {
+        if (this.form.street_state.match(
+              'British Columbia|Manitoba|New Brunswick|Newfoundland and Labrador|Nova Scotia|' +
+              'Northwest Territories|Nunavut|Ontario|Prince Edward Island|Quebec|Saskatchewan|Yukon')) {
             let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
+            this.street_postal = ca.test(value)
             return ca.test(value)
           }
           let us = /(^\d{5}$)|(^\d{5}-\d{4}$)/
+          this.street_postal = us.test(value)
           return us.test(value)
         }
       },
@@ -653,26 +660,21 @@ export default {
       },
       mailing_zip: {
         notApplicable (value) {
-          if (this.same) {
-            return true
-          }
-          if (this.form.mailing_state !== 'Not Applicable') {
+          if (this.form.street_state !== 'Not Applicable') {
             return true
           }
           return value.toString().length === 0
         },
         zip (value) {
-          if (this.same) {
-            return true
-          }
-          if (!this.form.mailing_state) {
+          if (!this.form.street_state) {
             return false
           }
-          let abvr = this.form.mailing_state.toLowerCase().split(' ').join('').substr(0, 4)
-          if (abvr === 'nota') {
+          if (this.form.street_state === 'Not Applicable') {
             return true
           }
-          if (abvr.match('albert|britis|manito|newbru|newfou|novasc|nunavu|northw|ontari|prince|quebec|saskat|yukon')) {
+        if (this.form.street_state.match(
+            'British Columbia|Manitoba|New Brunswick|Newfoundland and Labrador|Nova Scotia|' +
+            'Northwest Territories|Nunavut|Ontario|Prince Edward Island|Quebec|Saskatchewan|Yukon')) {
             let ca = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/
             return ca.test(value)
           }
@@ -1054,14 +1056,7 @@ export default {
       }
     },
     blurZip: function () {
-      const state1 = this.getState(this.form.street_zip.substring(0,5))
-      const state2 = this.getState(this.form.mailing_zip.substring(0,5))
-      if (state1) {
-        this.form.street_state = state1
-      }
-      if (state2 && !this.same) {
-        this.form.mailing_state = state2
-      }
+      console.log(`The Zip is ${this.street_postal ? 'valid' : 'invalid'}`)
       if (this.same) {
         this.form.mailing_zip = this.form.street_zip
       }
