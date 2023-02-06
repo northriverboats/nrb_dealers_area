@@ -375,6 +375,7 @@ function nrb_dealers_area_register_routes() {
  */
 function nrb_dealers_area_serve_route_foo( WP_REST_Request $request ) {
     global $wpdb;
+    global $dalog;
 
     // Do something with the $request
 
@@ -384,6 +385,7 @@ function nrb_dealers_area_serve_route_foo( WP_REST_Request $request ) {
     $response = [];
     // $response['message'] = "Hi Will ... {$bob}";
     $response['item'] = user_to_dealer_name(15);
+    $response['user'] = wp_get_current_user();
     return $response;
 }
 
