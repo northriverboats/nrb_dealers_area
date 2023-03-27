@@ -9,7 +9,7 @@ isset($row) or die('Direct Access to this location is not allowed.');
 
 <td width="17" align="left" valign="top" style="background-color:#0066cc"></td>
 
-<td width="123" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:24px; color:#FFF; background-color:#0066cc"><img src="http://www.northriverboats.com/logo-white2.png" width="205" height="75" /></td>
+<td width="123" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:24px; color:#FFF; background-color:#0066cc"><img src="https://www.northriverboats.com/logo-white2.png" width="205" height="75" /></td>
 
 <td width="561" style="font-family:Arial, Helvetica, sans-serif; font-size:24px; color:#FFF; background-color:#0066cc; padding-left:15px;">Dealer Receipt Inpection Form</td>
 

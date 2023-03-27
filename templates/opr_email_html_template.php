@@ -15,7 +15,7 @@ foreach ($row as $key => $value) {
 
 ?>
 <h2 style="text-align: center;">
-	<input alt="" src="http://www.northriverboats.com/images/nrboats-grn.png" style="width: 443px; height: 130px;" type="image" />
+	<input alt="" src="https://www.northriverboats.com/images/nrboats-grn.png" style="width: 443px; height: 130px;" type="image" />
 </h2>
 
 <p>Dear <?= $first_name . " " . $last_name ?>,</p>
@@ -35,6 +35,6 @@ foreach ($row as $key => $value) {
     </tr>
   </tbody>
 </table>
-<p>Please go to <a href="http://www.northriverboats.com/survey?id=<?php echo urlencode($survey_id) ?>">http://www.northriverboats.com/survey</a>. Enter your survey number: <span style="color: red;font-weight: bold;"><?php echo $survey_id ?></span></p>
+<p>Please go to <a href="https://www.northriverboats.com/survey?id=<?php echo urlencode($survey_id) ?>">https://www.northriverboats.com/survey</a>. Enter your survey number: <span style="color: red;font-weight: bold;"><?php echo $survey_id ?></span></p>
 <p>Thank you from all of us at North River Boats!</p>
 </body>

@@ -23,4 +23,4 @@ The Customer Satisfaction Survey is one way we seek feedback from the people who
 
 WE WILL SEND YOU TWO FREE NORTH RIVER HATS FOR COMPLETING THIS FORM
 
-Please go to http://www.northriverboats.com/survey. Enter your survey number: <?php echo $survey_id ?>
+Please go to https://www.northriverboats.com/survey. Enter your survey number: <?php echo $survey_id ?>
