@@ -3,7 +3,7 @@
 isset($row) or die('Direct Access to this location is not allowed.');
 
 ?>
-<table width="640" border="0" cellpadding="0" cellspacing="0" bordercolor="#999">
+<table style="page-break-inside: avoid;" width="640" border="0" cellpadding="0" cellspacing="0" bordercolor="#999">
 
 <tr>
 
