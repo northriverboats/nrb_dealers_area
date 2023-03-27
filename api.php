@@ -962,7 +962,7 @@ function nrb_dealers_area_serve_route_dri_pdf( WP_REST_Request $request ) {
     // Create Dealer PDF
     $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
-    $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
+    $mpdf->Output($folder . $filename, NRB\NRBA_DA\Mpdf\Output\Destination::FILE);
 
     return array("filename" => $url . $filename);
 }
@@ -1257,7 +1257,7 @@ function nrb_dealers_area_serve_route_opr_pdf( WP_REST_Request $request ) {
     // Create Dealer PDF
     $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
-    $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
+    $mpdf->Output($folder . $filename, NRB\NRB_DA\Mpdf\Output\Destination::FILE);
 
     return array("filename" => $url . $filename);
 }
@@ -1333,7 +1333,7 @@ function nrb_dealers_area_serve_route_contact_us_pdf( WP_REST_Request $request )
     // Create Dealer PDF
     $mpdf = new Mpdf();
     $mpdf->WriteHTML(utf8_encode($html));
-    $mpdf->Output($folder . $filename, \Mpdf\Output\Destination::FILE);
+    $mpdf->Output($folder . $filename, NRB\NRB_DA\Mpdf\Output\Destination::FILE);
 
     return array("filename" => $url . $filename);
 }
