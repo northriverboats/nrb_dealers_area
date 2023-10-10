@@ -40,11 +40,11 @@ rsync -aAXhv --delete --chown=www-data:www-data \
       --exclude package-lock.json \
       --exclude README.md \
       --exclude vue.config.js \
-      /home/fwarren/docker/website/wp-www/plugins/nrb_dealers_area \
+      /srv/docker/websites/www/plugins/nrb_dealers_area \
       nr:/srv/website/wp-www/html/wp-content/plugins
 
 rsync -aAXhv --delete --chown=www-data:www-data \
-      /home/fwarren/docker/website/wp-www/plugins/nrb_dealers_area/dist/ \
+      /srv/websites/www/plugins/nrb_dealers_area/dist/ \
       nr:/srv/website/wp-www/html/dealers-area/dist/
 ```
 
