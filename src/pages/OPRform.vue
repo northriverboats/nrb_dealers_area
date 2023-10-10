@@ -212,22 +212,21 @@
       <div class="column is-6-tablet is-3-desktop">
         <b-field label="Hull Serial Number"
           :type="{'is-danger': $v.form.hull_serial_number.$error}"
-          :message="{'Street Address is required': $v.form.hull_serial_number.$error}"
+          :message="{'Hull number is required': $v.form.hull_serial_number.$error}"
           v-bind:class="{ 'is-danger': $v.form.hull_serial_number.$error }"
         >
-          <b-autocomplete
-            v-model="form.hull_serial_number"
-            :data="filteredHullsArray"
-            :readonly="readOnly"
-            field="id"
-            placeholder="e.g. NRB 21045 B818"
-            :keep-first="true"
-            :open-on-focus="true"
-            @blur="hullBlurEvent"
-            @select="hullChanged"
+            <b-select placeholder="Select Hull Number"
+              expanded
+              @blur="hullBlurEvent"
+              @input="hullChanged"
             >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
+                <option
+                    v-for="option in filteredHullsArray"
+                    :value="option"
+                    :key="option.label">
+                    {{ option.label }}
+                </option>
+            </b-select>
         </b-field>
       </div>
       <div class="column is-6-tablet is-3-desktop">
@@ -1000,6 +999,7 @@ export default {
     },
     // DROPDOWN FILTERS
     hullChanged (value) {
+      console.log(value)
       if (value !== null) {
         this.form.dealership = value.dealership
         this.form.model = value.model
