@@ -217,11 +217,11 @@
         >
             <b-select placeholder="Select Hull Number"
               expanded
-              @blur="hullBlurEvent"
               @input="hullChanged"
+              v-model="form.hull_serial_number"
             >
                 <option
-                    v-for="option in filteredHullsArray"
+                    v-for="option in oprHulls"
                     :value="option"
                     :key="option.label">
                     {{ option.label }}
@@ -953,6 +953,9 @@ export default {
         return
       }
       this.submit_locked = false
+      const myid = this.form.hull_serial_number.id
+      this.hull_serial_number = myid
+      this.form.hull_serial_number = myid
 
       // fixup state
       const state1 = this.getState(this.form.street_zip.substring(0,5))
