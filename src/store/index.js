@@ -55,11 +55,14 @@ export default new Vuex.Store({
       'Seahawk Hardtop',
       'Seahawk Inboard',
       'Seahawk Outboard',
+      'LE',
       'Offshore C-Series',
       'Offshore S-Series',
-      'Offshorw Walk Around',
+      'Offshore Walk Around',
+      'Offshore VXL',
       'Cascade',
       'Commander',
+      'Endurance',
       'Osprey',
       'Scout',
       'Other'
@@ -85,7 +88,8 @@ export default new Vuex.Store({
       '32',
       '33',
       '34',
-      '35'
+      '35',
+      '37'
     ],
     engineMakeList: [
       'Yamaha',
