@@ -54,6 +54,7 @@ export default new Vuex.Store({
     boatModelList: [
       'Seahawk Hardtop',
       'Seahawk Inboard',
+      'Seahawk OS VXL',
       'Seahawk Outboard',
       'LE',
       'Offshore C-Series',
