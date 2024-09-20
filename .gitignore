@@ -20,3 +20,4 @@ tmp/*
 *.swp
 *.swn
 nohup.out
+/.vs
