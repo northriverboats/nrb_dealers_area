@@ -929,7 +929,8 @@ export default {
 
       this.date_deposit_start = this.$moment(buildDate).subtract(12, 'months').toDate()
       this.date_deposit_end = this.$moment(new Date()).toDate()
-      this.date_delivered_start = this.$moment(buildDate).subtract(1, 'months').toDate()
+      // Change from -1 to -6 months per Sara on ticket #127061
+      this.date_delivered_start = this.$moment(buildDate).subtract(6, 'months').toDate()
       this.date_delivered_end = this.$moment(new Date()).toDate()
 
       console.log("Start: " + this.date_delivered_start + " | End: " + this.date_delivered_end)
