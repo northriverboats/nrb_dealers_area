@@ -913,7 +913,8 @@ export default {
       }
       return ''
     },
-    setDateRanges (hull) {
+      setDateRanges(hull) {
+          console.log(hull)
       // get build_year as "20" + model_year_decade and handle corner case for I920 = 2019 not 2029
       // this.$moment() expects yyyy-m-d or yyyy-mm-dd for input
       var buildYear = ''
@@ -930,6 +931,9 @@ export default {
       this.date_deposit_end = this.$moment(new Date()).toDate()
       this.date_delivered_start = this.$moment(buildDate).subtract(1, 'months').toDate()
       this.date_delivered_end = this.$moment(new Date()).toDate()
+
+      console.log("Start: " + this.date_delivered_start + " | End: " + this.date_delivered_end)
+
     },
     changeDepositDate () {
       if (this.other.date_deposit) {
@@ -1002,7 +1006,7 @@ export default {
     },
     // DROPDOWN FILTERS
     hullChanged (value) {
-      console.log(value)
+        console.log(value)
       if (value !== null) {
         this.form.dealership = value.dealership
         this.form.model = value.model
