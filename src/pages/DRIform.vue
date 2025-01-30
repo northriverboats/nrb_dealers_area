@@ -430,8 +430,9 @@ export default {
       }
       return ''
     },
-    setDateRanges () {
-      this.date_received_start = this.$moment(this.date_delivered).toDate()
+      setDateRanges() {
+          // Adding offset -6 months per Sara on ticket #149492
+      this.date_received_start = this.$moment(this.date_delivered).subtract(6, 'months').toDate()
       this.date_received_end = this.$moment(new Date()).toDate()
       if (this.debug) { console.log(`  date_received_start: ${this.date_received_start}`) }
       if (this.debug) { console.log(`  date_received_end: ${this.date_received_end}`) }
