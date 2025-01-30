@@ -431,6 +431,7 @@ export default {
       return ''
     },
       setDateRanges() {
+      if (this.debug) { console.log(`  original_date_delivered: ${this.date_delivered}`) }
           // Adding offset -6 months per Sara on ticket #149492
       this.date_received_start = this.$moment(this.date_delivered).subtract(6, 'months').toDate()
       this.date_received_end = this.$moment(new Date()).toDate()
@@ -492,6 +493,9 @@ export default {
     // DROPDOWN FILTERS
     hullChanged (value) {
       if (value !== null) {
+        if (this.debug) { console.log('Hull Changed: ') }
+        if (this.debug) { console.log(value) }
+
         this.form.dealership = value.dealership
         this.form.model = value.model
         this.form.date_received = ''
