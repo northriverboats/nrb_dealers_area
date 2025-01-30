@@ -52,6 +52,8 @@ export default new Vuex.Store({
       'Service'
     ],
     boatModelList: [
+      'COHO',
+      'COHO HT',
       'Seahawk Hardtop',
       'Seahawk Inboard',
       'Seahawk OS VXL',
